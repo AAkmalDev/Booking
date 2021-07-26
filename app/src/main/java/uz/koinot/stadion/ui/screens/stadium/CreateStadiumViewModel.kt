@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.stadium
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -24,7 +24,7 @@ import kotlin.random.Random
 @HiltViewModel
 class CreateStadiumViewModel @Inject constructor(
     private val repository: MainRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var _createStadiumFlow = MutableStateFlow<UiStateObject<String>>(UiStateObject.EMPTY)
     val createStadiumFlow: StateFlow<UiStateObject<String>> get() = _createStadiumFlow
@@ -34,13 +34,13 @@ class CreateStadiumViewModel @Inject constructor(
         try {
             val res = repository.createStadium(data)
 
-            if(res.success == 200){
+            if (res.success == 200) {
                 _createStadiumFlow.value = UiStateObject.SUCCESS(res.message)
-            }else{
-                _createStadiumFlow.value = UiStateObject.ERROR(res.message,true)
+            } else {
+                _createStadiumFlow.value = UiStateObject.ERROR(res.message, true)
             }
-        }catch (e:Exception){
-            _createStadiumFlow.value = UiStateObject.ERROR(e.userMessage()?:"not found")
+        } catch (e: Exception) {
+            _createStadiumFlow.value = UiStateObject.ERROR(e.userMessage() ?: "not found")
             e.printStackTrace()
         }
     }

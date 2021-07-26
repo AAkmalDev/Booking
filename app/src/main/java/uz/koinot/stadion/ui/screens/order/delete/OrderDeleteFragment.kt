@@ -1,26 +1,20 @@
-package uz.koinot.stadion.ui.screens.dashboard
+package uz.koinot.stadion.ui.screens.order.delete
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.FtsOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.DeleteOrderAdapter
-import uz.koinot.stadion.adapter.OrderAdapter
-import uz.koinot.stadion.databinding.FragmentOderBinding
+import uz.koinot.stadion.data.model.Order
 import uz.koinot.stadion.databinding.FragmentOrderDeleteBinding
-import uz.koinot.stadion.ui.screens.home.BaseDialog
-import uz.koinot.stadion.ui.screens.home.OrderViewModel
 import uz.koinot.stadion.utils.*
 
 @AndroidEntryPoint
@@ -31,6 +25,7 @@ class OrderDeleteFragment : Fragment(R.layout.fragment_order_delete) {
     private val bn get() = _bn!!
     private val adapter = DeleteOrderAdapter()
     private  var stadiumId : Long = 0
+    private lateinit var order: Order
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +63,7 @@ class OrderDeleteFragment : Fragment(R.layout.fragment_order_delete) {
         collects()
 
         adapter.setOnDeleteListener {
+            order = it
             viewModel.orderDelete(it.id)
         }
 
@@ -96,7 +92,7 @@ class OrderDeleteFragment : Fragment(R.layout.fragment_order_delete) {
                 when(it){
                     is UiStateObject.SUCCESS ->{
                         showProgress(false)
-                        viewModel.getCancel(stadiumId)
+                        adapter.deleteItem(order)
                     }
                     is UiStateObject.ERROR ->{
                         showProgress(false)

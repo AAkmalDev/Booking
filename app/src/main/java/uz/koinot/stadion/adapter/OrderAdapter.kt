@@ -38,7 +38,7 @@ class OrderAdapter: RecyclerView.Adapter<OrderAdapter.VHolder>() {
                day.text = d.time
                sum.text = d.sum.toMoneyFormat()
                phone1.text = if(d.phoneNumber != null) d.phoneNumber else d.originalPhoneNumber
-
+                count.text = d.countOrder.toInt().toString()
                 phone1.setOnClickListener {
                     if(d.phoneNumber != null)
                     phoneNumberListener1?.invoke(d.phoneNumber!!)

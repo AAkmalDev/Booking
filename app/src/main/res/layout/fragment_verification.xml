@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.screens.PhoneNumberFragment">
+    tools:context=".ui.screens.auth.register.PhoneNumberFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:layout_width="match_parent"
-        app:title="@string/verification_code"
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:navigationIcon="@drawable/ic_baseline_arrow_back"
-        android:layout_height="wrap_content"/>
+        app:title="@string/verification_code" />
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:progressBarStyleHorizontal"
@@ -25,22 +26,22 @@
         android:indeterminateOnly="true"
         android:maxHeight="24dip"
         android:minHeight="24dip"
-        android:visibility="gone"
         android:progressBackgroundTint="#208afa"
         android:progressBackgroundTintMode="multiply"
-        />
+        android:visibility="gone" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:padding="24dp"
-        android:layout_height="match_parent">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="@string/please_enter_verification_code"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:text="@string/please_enter_verification_code" />
 
         <com.poovam.pinedittextfield.LinePinField
             android:id="@+id/input_verification_number"
@@ -62,22 +63,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:lineThickness="2dp"
             app:noOfFields="6" />
+
         <LinearLayout
-            android:visibility="visible"
-           android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:id="@+id/countDownTimer_linear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <cn.iwgang.countdownview.CountdownView
                 android:id="@+id/coutdown_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationZ="10dp"
+                android:visibility="visible"
                 app:isHideTimeBackground="false"
                 app:isShowDay="false"
-                android:visibility="visible"
                 app:isShowHour="false"
                 app:isShowMillisecond="false"
                 app:isShowMinute="true"
@@ -94,32 +97,32 @@
                 app:suffixTextColor="@color/black"
                 app:suffixTextSize="12sp"
                 app:timeBgColor="#00FF5000"
-                android:translationZ="10dp"
                 app:timeBgRadius="3dp"
                 app:timeBgSize="16dp"
                 app:timeTextColor="#FF0000"
                 app:timeTextSize="20dp" />
 
         </LinearLayout>
+
         <TextView
-            android:visibility="gone"
             android:id="@+id/try_again_text"
             android:layout_width="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textColor="#FF0000"
             android:layout_height="wrap_content"
-            android:text="@string/confirm_code_again"/>
+            android:layout_marginTop="24dp"
+            android:text="@string/confirm_code_again"
+            android:textColor="#FF0000"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btn_verification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_bgn"
-        android:enabled="false"
-        android:text="@string/send"
-        android:layout_marginBottom="32dp"
-        android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_verification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/btn_bgn"
+            android:enabled="false"
+            android:text="@string/send"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

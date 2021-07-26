@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens
+package uz.koinot.stadion.ui.screens.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,57 +7,50 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import uz.koinot.stadion.data.model.Order
-import uz.koinot.stadion.data.model.Register
-import uz.koinot.stadion.data.model.TokenBody
 import uz.koinot.stadion.data.repository.MainRepository
 import uz.koinot.stadion.utils.UiStateList
 import uz.koinot.stadion.utils.UiStateObject
 import uz.koinot.stadion.utils.userMessage
 import javax.inject.Inject
 
+
 @HiltViewModel
-class AuthViewModel @Inject constructor(
+class OrderViewModel @Inject constructor(
     private val repository: MainRepository
 ): ViewModel() {
 
-    private var _registerFlow = MutableStateFlow<UiStateObject<TokenBody>>(UiStateObject.EMPTY)
-    val registerFlow: StateFlow<UiStateObject<TokenBody>> get() = _registerFlow
+    private var _ordersFlow = MutableStateFlow<UiStateList<Order>>(UiStateList.EMPTY)
+    val orderFlow: StateFlow<UiStateList<Order>> get() = _ordersFlow
 
-    fun register(data:Register) = viewModelScope.launch {
-        _registerFlow.value = UiStateObject.LOADING
+    fun getOder(orderId:Long) = viewModelScope.launch {
+        _ordersFlow.value = UiStateList.LOADING
         try {
-            val res = repository.register(data)
+            val res = repository.getOder(orderId)
             if(res.success == 200){
-                _registerFlow.value = UiStateObject.SUCCESS(res.objectKoinot!!)
+                _ordersFlow.value = UiStateList.SUCCESS(res.objectKoinot)
             }else{
-                _registerFlow.value = UiStateObject.ERROR(res.message)
+                _ordersFlow.value = UiStateList.ERROR(res.message)
             }
         }catch (e:Exception){
-            _registerFlow.value = UiStateObject.ERROR(e.userMessage()?:"not found")
+            _ordersFlow.value = UiStateList.ERROR(e.userMessage()?:"not found")
             e.printStackTrace()
         }
     }
-    fun reRegister(){
-        _registerFlow.value = UiStateObject.EMPTY
-    }
-    fun reBot(){
-        _isBotStartedFlow.value = UiStateObject.EMPTY
-    }
 
-    private var _isBotStartedFlow = MutableStateFlow<UiStateObject<Boolean>>(UiStateObject.EMPTY)
-    val isBotStartedFlow: StateFlow<UiStateObject<Boolean>> get() = _isBotStartedFlow
+    private var _acceptFlow = MutableStateFlow<UiStateObject<String>>(UiStateObject.EMPTY)
+    val acceptFlow: StateFlow<UiStateObject<String>> get() = _acceptFlow
 
-    fun isBotStarted(number:String) = viewModelScope.launch {
-        _isBotStartedFlow.value = UiStateObject.LOADING
+    fun acceptOrder(orderId:Long) = viewModelScope.launch {
+        _acceptFlow.value = UiStateObject.LOADING
         try {
-            val res = repository.isBotStarted(number)
-            if(res.objectKoinot != null && res.objectKoinot!!){
-                _isBotStartedFlow.value = UiStateObject.SUCCESS(true)
+            val res = repository.accept(orderId)
+            if(res.success == 200){
+                _acceptFlow.value = UiStateObject.SUCCESS("Success")
             }else{
-                _isBotStartedFlow.value = UiStateObject.ERROR(res.message,true)
+                _acceptFlow.value = UiStateObject.ERROR(res.message)
             }
         }catch (e:Exception){
-            _isBotStartedFlow.value = UiStateObject.ERROR(e.userMessage()?:"not found")
+            _acceptFlow.value = UiStateObject.ERROR(e.userMessage()?:"not found")
             e.printStackTrace()
         }
     }

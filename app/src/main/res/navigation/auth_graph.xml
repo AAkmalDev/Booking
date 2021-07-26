@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/phoneNumberFragment"
-        android:name="uz.koinot.stadion.ui.screens.PhoneNumberFragment"
+        android:name="uz.koinot.stadion.ui.screens.auth.register.PhoneNumberFragment"
         android:label="fragment_phone_number"
         tools:layout="@layout/fragment_phone_number" >
         <action
@@ -16,31 +16,36 @@
     </fragment>
     <fragment
         android:id="@+id/verificationFragment"
-        android:name="uz.koinot.stadion.ui.screens.VerificationFragment"
+        android:name="uz.koinot.stadion.ui.screens.auth.VerificationFragment"
         android:label="fragment_verification"
-        tools:layout="@layout/fragment_verification" />
+        tools:layout="@layout/fragment_verification" >
+        <action
+            android:id="@+id/action_verificationFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         tools:layout="@layout/fragment_login"
-        android:name="uz.koinot.stadion.ui.screens.LoginFragment"
+        android:name="uz.koinot.stadion.ui.screens.auth.login.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_phoneNumberFragment"
             app:destination="@id/phoneNumberFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_passwordFragment"
-            app:destination="@id/passwordFragment" />
+            android:id="@+id/action_loginFragment_to_forgotFragment"
+            app:destination="@id/forgotFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
-        android:name="uz.koinot.stadion.ui.screens.home.ForgotFragment"
-        android:label="ForgotFragment" />
+        android:name="uz.koinot.stadion.ui.screens.auth.forgot.ForgotFragment"
+        android:label="ForgotFragment" >
+        <action
+            android:id="@+id/action_forgotFragment_to_verificationFragment"
+            app:destination="@id/verificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/passwordFragment"
-        android:name="uz.koinot.stadion.ui.screens.home.PasswordFragment"
+        android:name="uz.koinot.stadion.ui.screens.auth.forgot.PasswordFragment"
         android:label="PasswordFragment" >
-        <action
-            android:id="@+id/action_passwordFragment_to_forgotFragment"
-            app:destination="@id/forgotFragment" />
     </fragment>
 </navigation>

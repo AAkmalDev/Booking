@@ -28,9 +28,8 @@ import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.ActivityMainBinding
 import uz.koinot.stadion.ui.screens.dashboard.CancelOrderDialog
-import uz.koinot.stadion.utils.CONSTANTS
-import uz.koinot.stadion.utils.Utils
-import uz.koinot.stadion.utils.showMessage
+import uz.koinot.stadion.utils.*
+import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private var iNotification: INotification? = null
 
     @Inject
-    lateinit var api:ApiService
+    lateinit var api: ApiService
 
     @Inject
     lateinit var storage: LocalStorage
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFirebaseAnalytics: FirebaseAnalytics
     private var _bn: ActivityMainBinding? = null
     private val bn get() = _bn!!
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,53 +56,59 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_container)
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-            mFirebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true)
 
-        Firebase.messaging.subscribeToTopic("koinot").addOnCompleteListener {task->
-            Log.e("AAA","subscribe: ${task.isSuccessful}")
+        Firebase.messaging.subscribeToTopic("koinot").addOnCompleteListener { task ->
+            Log.e("AAA", "subscribe: ${task.isSuccessful}")
 //            Log.e("AAA","subscribe: ${task.result}")
         }
 //        Firebase.messaging.isAutoInitEnabled = true
 
-        if(storage.firebaseToken.isEmpty()){
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{task ->
+        if (storage.firebaseToken.isEmpty()) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
 //                if(!task.isSuccessful) return@OnCompleteListener
 
                 GlobalScope.launch {
                     try {
-                       api.token(task.result.toString())
+                        api.token(task.result.toString())
                         storage.firebaseToken = task.result.toString()
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
 //                        showMessage(e.localizedMessage?: "not found")
 //                        e.printStackTrace()
                     }
                 }
-                Log.e("AAA","token is: "+task.result.toString())
+                Log.e("AAA", "token is: " + task.result.toString())
             })
         }
 
 
         createDialog(intent)
     }
-    private fun createDialog(intent: Intent?){
-        if(intent != null){
+
+    private fun createDialog(intent: Intent?) {
+        if (intent != null) {
             val text = intent.getStringExtra("koinot")
             val stadium = intent.getStringExtra("stadium")
             val natificationType = intent.getStringExtra("natificationType")
-            val status = intent.getBooleanExtra("status",false)
+            val status = intent.getBooleanExtra("status", false)
             val title = intent.getStringExtra("title")
             val message = intent.getStringExtra("message")
-            if(text == "main"){
-                if(natificationType == CONSTANTS.ALL){
-                 title?.let {
-                     if (message != null) {
-                         CancelOrderDialog(it,message,status).show(supportFragmentManager,"hdbch")
-                     }
-                 }
-                }else{
+            if (text == "main") {
+                if (natificationType == CONSTANTS.ALL) {
+                    title?.let {
+                        if (message != null) {
+                            CancelOrderDialog(it, message, status).show(
+                                supportFragmentManager,
+                                "hdbch"
+                            )
+                        }
+                    }
+                } else {
                     navController.popBackStack()
-                    navController.navigate(R.id.pagerFragment, bundleOf(CONSTANTS.STADION to stadium),
-                        Utils.navOptions())
+                    navController.navigate(
+                        R.id.pagerFragment, bundleOf(CONSTANTS.STADION to stadium),
+                        Utils.navOptions()
+                    )
                 }
             }
 
@@ -120,8 +125,8 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         _bn = null
     }
-    fun setInterface(inter:INotification){
+
+    fun setInterface(inter: INotification) {
         iNotification = inter
     }
-    
 }

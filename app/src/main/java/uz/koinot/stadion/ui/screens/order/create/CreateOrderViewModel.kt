@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.order.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

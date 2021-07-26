@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import retrofit2.HttpException
+import java.io.File
 import java.io.IOException
 import java.net.ConnectException
 
@@ -59,3 +60,4 @@ fun Throwable.userMessage() = when (this) {
     else -> "Unknown error"
 }
 typealias SingleBlock<T> = (T) -> Unit
+

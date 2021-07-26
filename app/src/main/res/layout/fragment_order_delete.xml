@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/swipeRefresh"
-    tools:context=".ui.screens.home.OderFragment">
+    tools:context=".ui.screens.order.OrderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

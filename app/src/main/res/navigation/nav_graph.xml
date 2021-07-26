@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/oderFragment"
-        android:name="uz.koinot.stadion.ui.screens.home.OderFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.OrderFragment"
         android:label="fragment_oder"
-        tools:layout="@layout/fragment_oder" >
+        tools:layout="@layout/fragment_order" >
         <action
             android:id="@+id/action_oderFragment_to_createOrderFragment"
             app:destination="@id/createOrderFragment" />
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/createStadiumFragment"
-        android:name="uz.koinot.stadion.ui.screens.home.CreateStadiumFragment"
+        android:name="uz.koinot.stadion.ui.screens.stadium.CreateStadiumFragment"
         android:label="fragment_create_stadium"
         tools:layout="@layout/fragment_create_stadium" />
     <fragment
@@ -54,12 +54,12 @@
     </fragment>
     <fragment
         android:id="@+id/createOrderFragment"
-        android:name="uz.koinot.stadion.ui.screens.home.CreateOrderFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.create.CreateOrderFragment"
         android:label="fragment_create_order"
         tools:layout="@layout/fragment_create_order" />
     <fragment
         android:id="@+id/orderDeleteFragment"
-        android:name="uz.koinot.stadion.ui.screens.dashboard.OrderDeleteFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.delete.OrderDeleteFragment"
         android:label="fragment_order_delete"
         tools:layout="@layout/fragment_order_delete" />
 </navigation>

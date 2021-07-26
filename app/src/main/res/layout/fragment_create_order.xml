@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.screens.home.CreateOrderFragment">
+    tools:context=".ui.screens.order.create.CreateOrderFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -60,9 +60,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="24dp"
+                    android:text="0"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="0" />
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/myLocation"
