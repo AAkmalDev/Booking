@@ -2,38 +2,34 @@ package uz.koinot.stadion.ui.screens.home
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import uz.koinot.stadion.AuthActivity
-import uz.koinot.stadion.BaseFragment
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.StadiumAdapter
+import uz.koinot.stadion.app.App
 import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentHomeBinding
 import uz.koinot.stadion.utils.*
 import java.io.File
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefreshListener {
@@ -44,6 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
     private val adapter = StadiumAdapter()
     private var stadiumId = 0L
     private lateinit var navController: NavController
+    private val REQUEST_CODE_GALLERY = 1
 
     @Inject
     lateinit var storage: LocalStorage
@@ -104,7 +101,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
                 getString(R.string.are_you_sure_delete_image)
             )
             dialog.setOnDeleteListener {
-                viewModel.deleteImage(id.substring(id.lastIndexOf("/") + 1).toLong())
+                viewModel.deleteImage(id.fileId)
                 dialog.dismiss()
             }
             dialog.show(childFragmentManager, "fsgsdfdf")
@@ -112,8 +109,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
         }
 
         adapter.setOnImageClickListener { list, position ->
-            val dialog = ImageDialog(list, position)
-            dialog.show(childFragmentManager, "image")
+            ImageDialog(list, position).show(childFragmentManager, "image")
         }
         adapter.setOnDeleteClickListener { stadium ->
             val dialog = BaseDialog(getString(R.string.delete), getString(R.string.are_you_sure))
@@ -149,30 +145,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
 
     private fun addImage(it: Stadium) {
         stadiumId = it.id
-//        checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE) {
-//            val intent = Intent(Intent.ACTION_PICK)
-//            intent.type = "image/*"
-//            requireActivity().startActivityForResult(intent, 0)
-//        }
-        checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE) {
-            ImagePicker.with(this)
-                .compress(1024)
-                .galleryOnly()
-                .maxResultSize(1080, 1080)
-                .start()
-
+        checkPermission(Manifest.permission.CAMERA) {
+            checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE) {
+                ImagePicker.with(this)
+                    .crop()	    			//Crop image(Optional), Check Customization for more option
+                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                    .start(12345)
+            }
         }
-//        checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE){
-//                val intent = Intent(Intent.ACTION_PICK)
-//                intent.type = "image/*"
-//            requireActivity().startActivityForResult(intent, 1)
-//
-//        }
-
     }
 
     private fun collects() {
-
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.getAllStadiumDb().collect {
                 adapter.submitList(it)
@@ -199,7 +183,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
                         showProgress(false)
                         bn.apply {
                             delay(2000)
-                            if(adapter.itemCount == 0){
+                            if (adapter.itemCount == 0) {
                                 textNotStadium.isVisible = true
                                 textNotStadium.text = it.message
                             }
@@ -214,8 +198,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
                                 )
                                 requireActivity().finish()
                             }
-
-
                             swipeRefresh.isRefreshing = false
                         }
                     }
@@ -293,13 +275,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("AAA","data:${resultCode}")
-        if (resultCode == Activity.RESULT_OK) {
-            Log.d("AAA","data2:$data")
+        Log.d("AAA", "data2:$data")
+        if (resultCode == Activity.RESULT_OK && requestCode == 12345) {
+            Log.d("AAA", "data2:$data")
             val uri = data?.data ?: return
             val path = PathUtil.getPath(requireContext(), uri)
-            viewModel.uploadImage(stadiumId, path)
+            val file = File(path)
+            viewModel.uploadImage(stadiumId, file)
+
         }
+        Log.d("AAA", "data:${resultCode}")
     }
 
     override fun onDestroy() {

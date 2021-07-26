@@ -34,6 +34,7 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.VHolder>() {
            view.apply {
                txPhoneNumber.text = d.phoneNumber
                txFullName.text = "${d.firstName} ${d.lastName}"
+
            }
             itemView.setOnClickListener {
                 listener?.invoke(d)

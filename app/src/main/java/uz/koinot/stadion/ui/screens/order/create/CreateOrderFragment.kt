@@ -1,13 +1,10 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.order.create
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -20,8 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import uz.koinot.stadion.BaseFragment
-import uz.koinot.stadion.MainActivity
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.UserAdapter
 import uz.koinot.stadion.data.model.CreateOrder

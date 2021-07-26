@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.order
 
 import android.content.Intent
 import android.net.Uri
@@ -12,23 +12,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import uz.koinot.stadion.BaseFragment
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.OrderAdapter
-import uz.koinot.stadion.data.model.Stadium
-import uz.koinot.stadion.databinding.FragmentOderBinding
+import uz.koinot.stadion.databinding.FragmentOrderBinding
+import uz.koinot.stadion.ui.screens.home.BaseDialog
 import uz.koinot.stadion.utils.*
 
 
 @AndroidEntryPoint
-class OderFragment : Fragment(R.layout.fragment_oder) {
+class OrderFragment : Fragment(R.layout.fragment_order) {
 
     private val viewModel: OrderViewModel by viewModels()
-    private var _bn: FragmentOderBinding? = null
+    private var _bn: FragmentOrderBinding? = null
     private val bn get() = _bn!!
     private val adapter = OrderAdapter()
     private  var stadiumId:Long = 0
@@ -57,7 +54,7 @@ class OderFragment : Fragment(R.layout.fragment_oder) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        _bn = FragmentOderBinding.bind(view)
+        _bn = FragmentOrderBinding.bind(view)
 
         bn.rvOrders.adapter = adapter
         bn.rvOrders.layoutManager = LinearLayoutManager(requireContext())

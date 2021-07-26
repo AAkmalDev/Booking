@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens
+package uz.koinot.stadion.ui.screens.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: MainRepository,
     private val storage: LocalStorage
-): ViewModel() {
+) : ViewModel() {
 
     private var _loginFlow = MutableStateFlow<UiStateObject<String>>(UiStateObject.EMPTY)
     val loginFlow: StateFlow<UiStateObject<String>> get() = _loginFlow
@@ -32,13 +32,14 @@ class LoginViewModel @Inject constructor(
                 storage.accessToken = res.objectKoinot!!.accessToken
                 _loginFlow.value = UiStateObject.SUCCESS(res.message)
             } else {
-                _loginFlow.value = UiStateObject.ERROR(res.message,true)
+                _loginFlow.value = UiStateObject.ERROR(res.message, true)
             }
         } catch (e: Exception) {
             _loginFlow.value = UiStateObject.ERROR(e.userMessage())
         }
     }
-    fun reLogin(){
+
+    fun reLogin() {
         _loginFlow.value = UiStateObject.EMPTY
     }
 
@@ -49,7 +50,7 @@ class LoginViewModel @Inject constructor(
     fun getVerificationCode(sendNumber: String) = viewModelScope.launch {
         _forgotPhoneFlow.value = UiStateObject.LOADING
         try {
-            val verification = repository.forgotPhone(sendNumber)
+            val verification = repository.sendCode(sendNumber)
             if (verification.success == 200) {
                 _forgotPhoneFlow.value = UiStateObject.SUCCESS(verification.message)
             } else {
@@ -60,26 +61,24 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun reCode(){
+    fun reCode() {
         _forgotPhoneFlow.value = UiStateObject.EMPTY
     }
 
-    private val _createPasswordFlow = MutableStateFlow<UiStateObject<ResponseRegister>>(UiStateObject.EMPTY)
-    val createPasswordFlow: StateFlow<UiStateObject<ResponseRegister>> get() = _createPasswordFlow
+    private val _createPasswordFlow = MutableStateFlow<UiStateObject<String>>(UiStateObject.EMPTY)
+    val createPasswordFlow: StateFlow<UiStateObject<String>> get() = _createPasswordFlow
 
-    fun sendForgotPassword(code:String,password:String,phone:String) = viewModelScope.launch {
+    fun sendForgotPassword(password: String) = viewModelScope.launch {
         _createPasswordFlow.value = UiStateObject.LOADING
         try {
-            val res = repository.createPassword(code,password,phone)
-            if (res.success == 200) {
-                _createPasswordFlow.value = UiStateObject.SUCCESS(res.objectKoinot!!)
+            val res = repository.createPassword(password)
+            if (res.success == 202) {
+                _createPasswordFlow.value = UiStateObject.SUCCESS(res.message)
             } else {
-                _createPasswordFlow.value = UiStateObject.ERROR("xatolik")
+                _createPasswordFlow.value = UiStateObject.ERROR(res.message)
             }
         } catch (e: Exception) {
             _createPasswordFlow.value = UiStateObject.ERROR(e.userMessage())
         }
     }
-
-
 }

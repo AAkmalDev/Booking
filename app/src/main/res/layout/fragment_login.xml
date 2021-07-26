@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="24dp"
-    tools:context=".ui.screens.PhoneNumberFragment">
+    tools:context=".ui.screens.auth.register.PhoneNumberFragment">
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:progressBarStyleHorizontal"

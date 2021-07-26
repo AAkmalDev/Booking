@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.auth.forgot
 
 import android.Manifest
 import android.os.Bundle
@@ -13,19 +13,20 @@ import androidx.navigation.fragment.findNavController
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import uz.koinot.stadion.BaseFragment
 import uz.koinot.stadion.R
 import uz.koinot.stadion.databinding.FragmentForgotBinding
-import uz.koinot.stadion.ui.screens.LoginViewModel
+import uz.koinot.stadion.ui.screens.auth.login.LoginViewModel
 import uz.koinot.stadion.utils.*
 
 @AndroidEntryPoint
-class ForgotFragment : Fragment(R.layout.fragment_forgot){
+class ForgotFragment : Fragment(R.layout.fragment_forgot) {
 
     private var _bind:FragmentForgotBinding? = null
     private val bind get() = _bind!!
 
     private var number = ""
-    private val viewmodel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _bind = FragmentForgotBinding.bind(view)
@@ -59,20 +60,23 @@ class ForgotFragment : Fragment(R.layout.fragment_forgot){
         })
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewmodel.forgotPhoneFlow.collect{
+            viewModel.forgotPhoneFlow.collect{
                 when (it) {
                     is UiStateObject.SUCCESS -> {
                         showProgress(false)
-                        viewmodel.reCode()
+                        viewModel.reCode()
+                        val bundle = Bundle()
+                        bundle.putString("phoneKey",number)
+                        bundle.putBoolean("isForgot",true)
                         findNavController().navigate(
-                            R.id.passwordFragment,
-                            bundleOf("number" to number),
+                            R.id.verificationFragment,
+                            bundle,
                             Utils.navOptions()
                         )
                     }
                     is UiStateObject.ERROR -> {
                         showProgress(false)
-                        viewmodel.reCode()
+                        viewModel.reCode()
                         showMessage(it.message)
                     }
                     is UiStateObject.LOADING -> {
@@ -87,7 +91,7 @@ class ForgotFragment : Fragment(R.layout.fragment_forgot){
 
     private fun send() {
         number = "+998" + bind.inputPhoneNumber.rawText.toString()
-        if(number.length == 13)viewmodel.getVerificationCode((number))
+        if(number.length == 13)viewModel.getVerificationCode((number))
         else{
             bind.inputPhoneNumber.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
             vibrate(requireContext())

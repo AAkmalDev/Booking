@@ -9,7 +9,7 @@ import uz.koinot.stadion.data.model.*
 interface AuthService {
 
     @POST("koinot/auth/register")
-    suspend fun auth(@Body data: Register): ResponseObject<TokenBody>
+    suspend fun auth(@Body data: Register): ResponseObject<Any>
 
     @POST("koinot/auth/login")
     suspend fun login(@Body data: Login): ResponseObject<TokenBody>
@@ -17,13 +17,19 @@ interface AuthService {
     @GET("koinot/auth/isBrbtStart/{number}")
     suspend fun isBotStarted(@Path("number") number: String): ResponseObject<Boolean>
 
-    @GET("koinot/auth/forgotPassword/{number}")
-    suspend fun forgotPhone(@Path("number") number: String): ResponseObject<Any>
+    @POST("koinot/auth/sendCode/{phoneNumber}")
+    suspend fun sendCode(@Path("phoneNumber") number: String): ResponseObject<Any>
 
-    @GET("koinot/auth/newPassword/{code}/{password}/{number}")
+    @GET("koinot/auth/newPassword/{password}")
     suspend fun createPassword(
-        @Path("code") code: String,
-        @Path("password") password: String,
-        @Path("number") number: String,
+        @Path("password") password: String
     ): ResponseObject<ResponseRegister>
+
+    @POST("/koinot/auth/verify/{code}/{phoneNumber}")
+    suspend fun verifyCode(
+        @Path("code") code: String,
+        @Path("phoneNumber") phoneNumber: String
+    ): ResponseObject<TokenBody>
+
+
 }

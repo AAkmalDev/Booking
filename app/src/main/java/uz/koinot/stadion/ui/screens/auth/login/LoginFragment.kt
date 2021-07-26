@@ -1,32 +1,25 @@
-package uz.koinot.stadion.ui.screens
+package uz.koinot.stadion.ui.screens.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.PhoneNumberUnderscoreSlotsParser
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
-import uz.koinot.stadion.BaseFragment
 import uz.koinot.stadion.MainActivity
 import uz.koinot.stadion.R
 import uz.koinot.stadion.data.model.Login
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentLoginBinding
-import uz.koinot.stadion.ui.screens.home.HomeViewModel
 import uz.koinot.stadion.utils.*
 import javax.inject.Inject
 
@@ -55,9 +48,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 bn.inputPhoneNumber.setText("+998")
             }
         }
-
         bn.inputPhoneNumber.addTextChangedListener(textWatcherName)
-
         bn.txForgotPassword.setOnClickListener {
             navController.navigate(R.id.forgotFragment,null,Utils.navOptions())
         }
@@ -66,7 +57,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 Utils.closeKeyboard(requireActivity())
                 number = inputPhoneNumber.text.toString().replace(" ","")
                 val password = inputPassword.text.toString().trim()
-
                 when{
                     number.length != 13 ->{
                         bn.inputPhoneNumber.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
@@ -82,13 +72,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         viewModel.login(Login(number,password))
                     }
                 }
-
             }
             createAccount.setOnClickListener {
                 navController.navigate(R.id.phoneNumberFragment,null,Utils.navOptions())
             }
-
-
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -119,9 +106,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
     }
-    private val textWatcherName = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private val textWatcherName = object : TextWatcherWrapper() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (bn.inputPhoneNumber.text.toString().length == 17) {
                 bn.inputPassword.requestFocus()

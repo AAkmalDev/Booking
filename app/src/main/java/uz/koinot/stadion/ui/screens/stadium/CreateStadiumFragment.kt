@@ -1,10 +1,6 @@
-package uz.koinot.stadion.ui.screens.home
+package uz.koinot.stadion.ui.screens.stadium
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.DigitsKeyListener
 import android.util.Log
@@ -18,20 +14,16 @@ import androidx.navigation.fragment.findNavController
 //import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ic0der.justtaxi.utils.AmountFormat
 import kotlinx.coroutines.flow.collect
-import uz.koinot.stadion.BaseFragment
 import uz.koinot.stadion.R
-import uz.koinot.stadion.adapter.AttachmentAdapter
-import uz.koinot.stadion.data.model.CreateOrder
 import uz.koinot.stadion.data.model.CreateStadium
-import uz.koinot.stadion.data.model.Photos
 import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentCreateStadiumBinding
+import uz.koinot.stadion.ui.screens.home.MapFragment
 import uz.koinot.stadion.utils.*
 import javax.inject.Inject
 
@@ -92,7 +84,7 @@ class CreateStadiumFragment : Fragment(R.layout.fragment_create_stadium) {
                 if(stadium.closing_time != null) timeClose.setText(stadium.closing_time!!.toNeedTime())
                 priceDay.setText(stadium.price_day_time.toString())
                 priceNight.setText(stadium.price_night_time.toString())
-                whenStartNightTime.setText(stadium.change_price_time.toNeedTime())
+                whenStartNightTime.setText(stadium.change_price_time?.toNeedTime())
                 widthStadium.setText(stadium.width.toString())
                 heightStadium.setText(stadium.height.toString())
             }
