@@ -16,9 +16,9 @@ android {
         applicationId "uz.koinot.stadion"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 2
+        versionCode 4
         multiDexEnabled true
-        versionName "1.0.1"
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -139,6 +139,9 @@ dependencies {
     implementation 'top.zibin:Luban:1.0.8'
     implementation 'me.shaohui.advancedluban:library:1.3.5'
     implementation 'com.android.tools.build:aapt2:4.2.2-7147631'
+
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
 
 
 
