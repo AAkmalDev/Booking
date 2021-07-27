@@ -13,6 +13,7 @@ import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.repository.MainRepository
 import uz.koinot.stadion.utils.UiStateList
 import uz.koinot.stadion.utils.UiStateObject
+import uz.koinot.stadion.utils.compress
 import uz.koinot.stadion.utils.userMessage
 import java.io.File
 import javax.inject.Inject
@@ -45,10 +46,9 @@ class HomeViewModel @Inject constructor(
     private var _imageFlow = MutableStateFlow<UiStateObject<Boolean>>(UiStateObject.EMPTY)
     val imageFlow: StateFlow<UiStateObject<Boolean>> get() = _imageFlow
 
-    fun uploadImage(id: Long, path: String) = viewModelScope.launch {
+    fun uploadImage(id: Long, file: File) = viewModelScope.launch {
         _imageFlow.value = UiStateObject.LOADING
         try {
-            val file = File(path)
             val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
             val image = MultipartBody.Part.createFormData("image", file.name, requestFile)
 

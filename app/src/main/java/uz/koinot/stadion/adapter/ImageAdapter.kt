@@ -15,13 +15,13 @@ import uz.koinot.stadion.utils.toMoneyFormat
 
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.VHolder>() {
 
-    private val list = ArrayList<String>()
+    private val list = ArrayList<Photos>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VHolder(
         ItemImageBinding.inflate(LayoutInflater.from(parent.context),parent,false)
     )
 
-    override fun onBindViewHolder(holder: VHolder, position: Int)  = holder.bind(list[position])
+    override fun onBindViewHolder(holder: VHolder, position: Int)  = holder.bind(list[position].link)
 
     override fun getItemCount() = list.size
 
@@ -38,7 +38,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.VHolder>() {
         }
     }
 
-    fun submitList(ls: List<String>){
+    fun submitList(ls: List<Photos>){
         list.clear()
         list.addAll(ls)
         notifyDataSetChanged()

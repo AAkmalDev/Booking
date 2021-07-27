@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Stadium(
     @PrimaryKey(autoGenerate = false)
     var id: Long,
-    var name: String,
+    var name: String? = "",
     var countVerify: Int,
     var countNotVerify: Int,
     var latitude: Double,
@@ -17,7 +17,7 @@ data class Stadium(
     var opening_time: String?,
     var closing_time: String?,
     var stadium_like: Int,
-    var change_price_time: String,
+    var change_price_time: String?,
     var price_day_time: Double,
     var price_night_time: Double,
     var width: Int,
@@ -27,5 +27,5 @@ data class Stadium(
     var active: Boolean,
     var verify: Boolean,
     var money: Double,
-    var photos: String?
+    var photos: List<Photos>
 )

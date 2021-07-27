@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.dashboard
+package uz.koinot.stadion.ui.screens.order.delete
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

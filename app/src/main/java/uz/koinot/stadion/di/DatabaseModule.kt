@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import uz.koinot.stadion.data.model.Converters
 import uz.koinot.stadion.data.room.AppDatabase
 import uz.koinot.stadion.data.room.OrderDao
 import javax.inject.Singleton
@@ -18,10 +19,12 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun getDatabase(@ApplicationContext context: Context): AppDatabase=
-        Room.databaseBuilder(context,AppDatabase::class.java,"block").build()
+    fun getDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "block")
+            .addTypeConverter(Converters())
+            .build()
 
     @Provides
     @Singleton
-    fun getRouteDao(database: AppDatabase):OrderDao = database.orderDao()
+    fun getRouteDao(database: AppDatabase): OrderDao = database.orderDao()
 }

@@ -10,7 +10,7 @@ import uz.koinot.stadion.adapter.ImageAdapter
 import uz.koinot.stadion.data.model.Photos
 import uz.koinot.stadion.databinding.ImageDialogBinding
 
-class ImageDialog(val photos: List<String>,val selectedItem:Int): DialogFragment() {
+class ImageDialog(val photos: List<Photos>,val selectedItem:Int): DialogFragment() {
     private var _bn:ImageDialogBinding? = null
     private val bn get() = _bn!!
     val adapter = ImageAdapter()
