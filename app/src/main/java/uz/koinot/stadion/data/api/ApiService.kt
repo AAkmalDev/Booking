@@ -73,7 +73,7 @@ interface ApiService {
     @POST("koinot/auth/recode")
     suspend fun recode(): ResponseObject<Any>
 
-    @POST("koinot/stadium/getCancel/{id}")
+    @GET("koinot/stadium/getCancel/{id}")
     suspend fun getCancel(@Path("id") id: Long): ResponseList<Order>
 
     @POST("koinot/stadium/deleteCancel/{id}")
