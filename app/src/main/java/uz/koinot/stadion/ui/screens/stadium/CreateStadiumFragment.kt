@@ -173,6 +173,10 @@ class CreateStadiumFragment : Fragment(R.layout.fragment_create_stadium) {
                         vibrate(requireContext())
 
                     }
+                    timeNight.isEmpty() ->{
+                        bn.whenStartNightTime.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                        vibrate(requireContext())
+                    }
                     else ->{
                         if (type) {
                             viewModel.createStadium(

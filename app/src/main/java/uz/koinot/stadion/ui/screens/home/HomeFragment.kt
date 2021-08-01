@@ -120,18 +120,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
             dialog.show(childFragmentManager, "wrt")
 
         }
-        bn.logOut.setOnClickListener {
-            val dialog =
-                BaseDialog(getString(R.string.exit), getString(R.string.do_you_want_to_exit))
-            dialog.setOnDeleteListener {
-                storage.hasAccount = false
-                dialog.dismiss()
-                storage.firebaseToken = ""
-                requireActivity().startActivity(Intent(requireContext(), AuthActivity::class.java))
-                requireActivity().finish()
-            }
-            dialog.show(childFragmentManager, "fsdf")
-
+        bn.userProfile.setOnClickListener {
+            navController.navigate(R.id.userProfileFragment,null,Utils.navOptions())
         }
 
         bn.addStadium.setOnClickListener {
