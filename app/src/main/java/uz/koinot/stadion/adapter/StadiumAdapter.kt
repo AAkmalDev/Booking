@@ -41,8 +41,7 @@ class StadiumAdapter : RecyclerView.Adapter<StadiumAdapter.VHolder>() {
                 likeCount.text = d.stadium_like.toMoneyFormat()
                 verifyCount.text = d.countVerify.toString()
                 notVerifyCount.text = d.countNotVerify.toString()
-                //  val ls = Gson().fromJson<List<String>>(d.photos,object : TypeToken<List<String>>(){}.type)
-                val imageAdapter = RvImageAdapter(d, d.photos!!)
+                val imageAdapter = RvImageAdapter(d, d.photos)
                 rvImages.adapter = imageAdapter
 
                 imageAdapter.setOnClickListener { stadium, pos ->
