@@ -82,5 +82,6 @@ interface ApiService {
     @POST("/koinot/auth/newPassword/{password}")
     suspend fun newPassword(@Path("password") password: String): ResponseObject<ResponseRegister>
 
-
+    @GET("/koinot/auth/me")
+    suspend fun getUser():ResponseObject<User>
 }

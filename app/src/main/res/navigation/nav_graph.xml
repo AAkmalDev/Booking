@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mapFragment2"
             app:destination="@id/mapFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/oderFragment"
@@ -62,4 +65,9 @@
         android:name="uz.koinot.stadion.ui.screens.order.delete.OrderDeleteFragment"
         android:label="fragment_order_delete"
         tools:layout="@layout/fragment_order_delete" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="uz.koinot.stadion.ui.screens.user.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>
