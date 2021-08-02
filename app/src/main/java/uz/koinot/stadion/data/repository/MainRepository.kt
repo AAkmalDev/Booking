@@ -52,6 +52,7 @@ class MainRepository @Inject constructor(
 
     suspend fun createPassword(password: String) =
         api.newPassword(password)
+    suspend fun getUser() = api.getUser()
 
 
 }

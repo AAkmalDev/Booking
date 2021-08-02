@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Order(
+data class  Order(
     @PrimaryKey(autoGenerate = false)
     var id: Long,
     var phoneNumber: String?,
