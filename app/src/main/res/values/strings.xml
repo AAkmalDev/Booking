@@ -78,4 +78,5 @@
     <string name="enter_phone_number">Enter phone number</string>
     <string name="confirmation">Confirm</string>
     <string name="create_password">Create Password</string>
+    <string name="forgot_password">Забыли пароль?</string>
 </resources>
