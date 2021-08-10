@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".ui.screens.stadium.CreateStadiumFragment">
 
     <LinearLayout
@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_baseline_arrow_back"
-            app:title="@string/createStadium" />
+            app:title="@string/createStadium"
+            app:titleTextColor="@color/stadion_color" />
+
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:progressBarStyleHorizontal"
@@ -30,20 +32,28 @@
             android:indeterminateOnly="true"
             android:maxHeight="24dip"
             android:minHeight="24dip"
-            android:visibility="gone"
             android:progressBackgroundTint="#208afa"
             android:progressBackgroundTintMode="multiply"
-            />
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/phone_number" />
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputPhoneNumber"
@@ -60,12 +70,19 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:id="@+id/layout_location"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/adress_stadium" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_location"
+                style="@style/Text_Input_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/location"
@@ -81,11 +98,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/name_stadium" />
+
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                style="@style/Text_Input_Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameStadium"
@@ -100,21 +124,32 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:id="@+id/text_open_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/time_open"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutTimeOpen"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Text_Input_Layout"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="12dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="@id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_open_time">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/time_open"
@@ -130,16 +165,33 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/text_close_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/time_close"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutTimeClose"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Text_Input_Layout"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="3dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/text_close_time">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/time_close"
@@ -156,59 +208,100 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-            </LinearLayout>
-            <LinearLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="12dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/price_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/price_day"
-                    android:maxLength="7"
-                    android:imeOptions="actionNext"
-                    android:inputType="number">
+                <TextView
+                    android:id="@+id/text_open_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/price_day"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                </com.google.android.material.textfield.TextInputEditText>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Text_Input_Layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_open_price">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/price_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/price_day"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="7">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/text_night_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/price_night"
+                    app:layout_constraintStart_toStartOf="@id/guideline_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Text_Input_Layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline_2"
+                    app:layout_constraintTop_toBottomOf="@+id/text_night_price">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/priceNight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/price_night"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="7">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/when_start_night_time" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/priceNight"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/price_night"
-                    android:maxLength="7"
-                    android:imeOptions="actionNext"
-                    android:inputType="number">
-
-                </com.google.android.material.textfield.TextInputEditText>
-
-            </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutStartNightTime"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                style="@style/Text_Input_Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="3dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -226,52 +319,140 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="12dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:id="@+id/text_width_std"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginStart="15dp"
+                    android:text="@string/width_stadium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Text_Input_Layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_width_std">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/widthStadium"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/width_stadium"
-                        android:maxLength="3"
                         android:imeOptions="actionNext"
-                        android:inputType="number">
+                        android:inputType="number"
+                        android:maxLength="3">
 
                     </com.google.android.material.textfield.TextInputEditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/text_height_std"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/height_stadium"
+                    app:layout_constraintStart_toStartOf="@id/guideline_3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Text_Input_Layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline_3"
+                    app:layout_constraintTop_toBottomOf="@+id/text_height_std">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/heightStadium"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/height_stadium"
-                        android:maxLength="3"
                         android:imeOptions="actionDone"
-                        android:inputType="number">
+                        android:inputType="number"
+                        android:maxLength="3">
 
                     </com.google.android.material.textfield.TextInputEditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/text_stadium_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/indoors_outdoor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_back"
+                        android:gravity="center">
+
+                        <RadioButton
+                            android:checked="true"
+                            android:id="@+id/radio_outdoor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/outdoor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_back"
+                        android:gravity="center">
+
+                        <RadioButton
+                            android:id="@+id/radio_indoors"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/indoors" />
+                    </LinearLayout>
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <Button
@@ -279,11 +460,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/white"
-                android:background="@drawable/btn_bgn"
+                android:background="@drawable/btn_back_order"
                 android:padding="12dp"
                 android:text="@string/add_stadium"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </LinearLayout>

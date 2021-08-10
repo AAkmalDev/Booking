@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
+    android:padding="5dp"
     android:id="@+id/swipeRefresh"
     tools:context=".ui.screens.dashboard.DashboardFragment">
 
@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
                 <view
                     android:id="@+id/line_view"
                     class="im.dacer.androidcharts.LineView"
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:visibility="visible"
+                tools:listitem="@layout/item_order"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>

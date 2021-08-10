@@ -22,6 +22,7 @@ import uz.koinot.stadion.adapter.UserAdapter
 import uz.koinot.stadion.data.model.CreateOrder
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentCreateOrderBinding
+import uz.koinot.stadion.ui.screens.dialog.BaseDialog
 import uz.koinot.stadion.utils.*
 import java.util.*
 import javax.inject.Inject
@@ -31,7 +32,7 @@ import javax.inject.Inject
 class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
 
     @Inject
-    lateinit var pref:LocalStorage
+    lateinit var pref: LocalStorage
 
     private val viewModel: CreateOrderViewModel by viewModels()
     private var _bn: FragmentCreateOrderBinding? = null
@@ -39,13 +40,13 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
     private var stadiumId = 0L
     private val adapter = UserAdapter()
     private var currentPhoneNumber = ""
-    var job:Job? = null
+    var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(arguments != null){
-            Log.d("AAA","stadiumId:$stadiumId")
-            stadiumId = arguments?.getLong(CONSTANTS.STADION_ID)?:0L
+        if (arguments != null) {
+            Log.d("AAA", "stadiumId:$stadiumId")
+            stadiumId = arguments?.getLong(CONSTANTS.STADION_ID) ?: 0L
         }
     }
 
@@ -58,11 +59,11 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                 findNavController().navigateUp()
             }
 
-            myLocation.setOnClickListener {
-                currentPhoneNumber = pref.phoneNumber
-                inputPhoneNumber.setText(pref.phoneNumber)
-            }
-            
+//            myLocation.setOnClickListener {
+//                currentPhoneNumber = pref.phoneNumber
+//                inputPhoneNumber.setText(pref.phoneNumber)
+//            }
+
             rvUsers.adapter = adapter
 
             adapter.setOnClickListener {
@@ -71,11 +72,11 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                 inputPhoneNumber.setText(it.phoneNumber)
             }
             inputDay.setOnClickListener {
-                val dialog = DatePickerDialog.newInstance{ _, year, monthOfYear, dayOfMonth ->
+                val dialog = DatePickerDialog.newInstance { _, year, monthOfYear, dayOfMonth ->
                     inputDay.setText("${year.getString()}-${(monthOfYear + 1).getString()}-${dayOfMonth.getString()}")
                 }
                 dialog.minDate = Calendar.getInstance()
-                    dialog.show(parentFragmentManager,"BBB")
+                dialog.show(parentFragmentManager, "BBB")
 
             }
             inputStartDate.setOnClickListener {
@@ -89,17 +90,17 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                 },true).show(parentFragmentManager,"aaa")
             }
             inputEndDate.setOnClickListener {
-                TimePickerDialog.newInstance({ _, hourOfDay, minute, _ ->
+                val time = TimePickerDialog.newInstance({ _, hourOfDay, minute, _ ->
                     val date1 = "${hourOfDay.getString()}:${minute.getString()}"
                     inputEndDate.setText(date1)
                     val date2 = inputStartDate.text.toString()
-                    if(date2.isNotEmpty()){
-                        viewModel.getOrderPrice(stadiumId,date2,date1)
+                    if (date2.isNotEmpty()) {
+                        viewModel.getOrderPrice(stadiumId, date2, date1)
                     }
-                },true).show(parentFragmentManager,"ttt")
+                }, true).show(parentFragmentManager, "ttt")
             }
             inputPhoneNumber.addTextChangedListener { text ->
-                if(text.toString().length > 4 && text.toString() != currentPhoneNumber){
+                if (text.toString().length > 4 && text.toString() != currentPhoneNumber) {
                     searchJob(text.toString())
                     currentPhoneNumber = text.toString()
                 }
@@ -111,31 +112,60 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                 val startTime = inputStartDate.text.toString().trim()
                 val endTime = inputEndDate.text.toString().trim()
 
-                when{
-                    number.length != 13 ->{
-                        bn.inputPhoneNumber.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                when {
+                    number.length != 13 -> {
+                        bn.inputPhoneNumber.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
                     }
 
-                    day.isEmpty() ->{
-                        bn.inputDay.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                    day.isEmpty() -> {
+                        bn.inputDay.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
                     }
 
-                    startTime.isEmpty() ->{
-                        bn.inputStartDate.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                    startTime.isEmpty() -> {
+                        bn.inputStartDate.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
 
                     }
 
-                    endTime.isEmpty() ->{
-                        bn.inputEndDate.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                    endTime.isEmpty() -> {
+                        bn.inputEndDate.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
 
                     }
 
-                    else ->{
-                        viewModel.createOrder(CreateOrder(null,stadiumId,day,startTime,endTime,number))
+                    else -> {
+                        viewModel.createOrder(
+                            CreateOrder(
+                                null,
+                                stadiumId,
+                                day,
+                                startTime,
+                                endTime,
+                                number
+                            )
+                        )
                     }
                 }
             }
@@ -154,18 +184,18 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
     private fun collects() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.createOrderFlow.collect {
-                when(it){
-                    is UiStateObject.SUCCESS ->{
+                when (it) {
+                    is UiStateObject.SUCCESS -> {
                         showProgress(false)
                         showMessage("Successfully created order")
                         findNavController().navigateUp()
 //                        clearData()
                     }
-                    is UiStateObject.ERROR ->{
+                    is UiStateObject.ERROR -> {
                         showProgress(false)
                         showMessage("Error Please Try again")
                     }
-                    is UiStateObject.LOADING ->{
+                    is UiStateObject.LOADING -> {
                         showProgress(true)
                     }
                     else -> Unit
@@ -174,15 +204,15 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.searchUserFlow.collect {
-                when(it){
-                    is UiStateList.SUCCESS ->{
+                when (it) {
+                    is UiStateList.SUCCESS -> {
                         if (it.data != null)
-                        adapter.submitList(it.data)
+                            adapter.submitList(it.data)
                     }
-                    is UiStateList.ERROR ->{
+                    is UiStateList.ERROR -> {
                         showMessage(getString(R.string.pease_try_again))
                     }
-                    is UiStateList.LOADING ->{
+                    is UiStateList.LOADING -> {
                     }
                     else -> Unit
                 }
@@ -191,24 +221,24 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.orderPriceFlow.collect {
-                when(it){
-                    is UiStateObject.SUCCESS ->{
+                when (it) {
+                    is UiStateObject.SUCCESS -> {
                         bn.loadingPrice.isVisible = false
                         bn.textOrderPrice.isVisible = true
                         showProgress(false)
-                        if(it.data.toString().contains("-")){
+                        if (it.data.toString().contains("-")) {
                             showMessage(getString(R.string.vaqt_kiritishda_xatolik))
                             bn.textOrderPrice.text = "0"
                             bn.inputEndDate.setText("")
-                        }else
-                             bn.textOrderPrice.text = it.data.toMoneyFormat()
+                        } else
+                            bn.textOrderPrice.text = it.data.toMoneyFormat()
                     }
-                    is UiStateObject.ERROR ->{
+                    is UiStateObject.ERROR -> {
                         bn.loadingPrice.isVisible = false
                         bn.textOrderPrice.isVisible = true
                         showProgress(false)
                     }
-                    is UiStateObject.LOADING ->{
+                    is UiStateObject.LOADING -> {
                         bn.loadingPrice.isVisible = true
                         bn.textOrderPrice.isVisible = false
                         showProgress(true)
@@ -229,7 +259,7 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
         }
     }
 
-    private fun showProgress(status:Boolean){
+    private fun showProgress(status: Boolean) {
         bn.progressBar.isVisible = status
     }
 
