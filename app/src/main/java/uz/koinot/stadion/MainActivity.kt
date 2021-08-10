@@ -1,35 +1,27 @@
 package uz.koinot.stadion
 
 import android.content.Intent
-import android.graphics.Color
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import uz.koinot.stadion.data.INotification
 import uz.koinot.stadion.data.api.ApiService
-import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.ActivityMainBinding
-import uz.koinot.stadion.ui.screens.dashboard.CancelOrderDialog
+import uz.koinot.stadion.ui.screens.dialog.CancelOrderDialog
 import uz.koinot.stadion.utils.*
-import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -80,8 +72,6 @@ class MainActivity : AppCompatActivity() {
                 Log.e("AAA", "token is: " + task.result.toString())
             })
         }
-
-
         createDialog(intent)
     }
 

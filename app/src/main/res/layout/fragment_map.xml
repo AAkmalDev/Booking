@@ -89,7 +89,7 @@
             android:layout_gravity="bottom"
             android:padding="12dp"
             android:textColor="@color/white"
-            android:background="@drawable/btn_bgn"
+            android:background="@drawable/btn_back_order"
             android:layout_margin="12dp"
             android:text="@string/choose"
             android:id="@+id/btn_choose_location"

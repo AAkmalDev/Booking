@@ -13,10 +13,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.AuthActivity
 import uz.koinot.stadion.R
+import uz.koinot.stadion.SplashActivity
 import uz.koinot.stadion.data.model.User
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentUserProfileBinding
-import uz.koinot.stadion.ui.screens.home.BaseDialog
+import uz.koinot.stadion.ui.screens.dialog.BaseDialog
 import uz.koinot.stadion.utils.UiStateObject
 import javax.inject.Inject
 
@@ -61,7 +62,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
     }
 
     fun logOut() {
-        binding.logOut.setOnClickListener {
+        binding.linear3.setOnClickListener {
             val dialog =
                 BaseDialog(getString(R.string.exit), getString(R.string.do_you_want_to_exit))
             dialog.setOnDeleteListener {
@@ -73,14 +74,25 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             }
             dialog.show(childFragmentManager, "fsdf")
         }
+
+        binding.linear4.setOnClickListener {
+            val intent = Intent(requireContext(),SplashActivity::class.java)
+            intent.putExtra("language","language")
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     @SuppressLint("SetTextI18n")
     fun getUserData(user: User) {
         binding.apply {
-            userName.text = "${user.lastName.replace("null","")} ${user.firstName.replace("null","" )}"
-            userPhoneNumber.text = user.phoneNumber
-            userMoney.text = user.money.toString()
+            inputFirstName.setText(user.firstName.replace("null", ""))
+            inputLastName.setText(user.lastName.replace("null", ""))
+            inputPhoneNumber.setText(user.phoneNumber)
+            inputEmail.setText(user.email)
+            textSum.text = user.money.toString()
+            textUserName.text =
+                "${user.lastName.replace("null", "")} ${user.firstName.replace("null", "")}"
         }
     }
 

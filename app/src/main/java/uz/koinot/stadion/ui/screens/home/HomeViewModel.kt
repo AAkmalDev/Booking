@@ -39,7 +39,6 @@ class HomeViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _stadiumFlow.value = UiStateList.ERROR(e.userMessage() ?: "not found")
-//            e.printStackTrace()
         }
     }
 

@@ -44,60 +44,78 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         format.installOn(bn.inputPhoneNumber)
 
         bn.inputPhoneNumber.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if(hasFocus){
+            if (hasFocus) {
                 bn.inputPhoneNumber.setText("+998")
             }
         }
         bn.inputPhoneNumber.addTextChangedListener(textWatcherName)
         bn.txForgotPassword.setOnClickListener {
-            navController.navigate(R.id.forgotFragment,null,Utils.navOptions())
+            navController.navigate(R.id.forgotFragment, null, Utils.navOptions())
         }
         bn.apply {
             btnLogin.setOnClickListener {
                 Utils.closeKeyboard(requireActivity())
-                number = inputPhoneNumber.text.toString().replace(" ","")
+                number = inputPhoneNumber.text.toString().replace(" ", "")
                 val password = inputPassword.text.toString().trim()
-                when{
-                    number.length != 13 ->{
-                        bn.inputPhoneNumber.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                when {
+                    number.length != 13 -> {
+                        bn.inputPhoneNumber.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
                     }
 
-                    password.length < 4 ->{
-                        bn.inputPassword.startAnimation(AnimationUtils.loadAnimation(requireContext(),R.anim.shake))
+                    password.length < 4 -> {
+                        bn.inputPassword.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.shake
+                            )
+                        )
                         vibrate(requireContext())
                     }
 
-                    else ->{
-                        viewModel.login(Login(number,password))
+                    else -> {
+                        viewModel.login(Login(number, password))
                     }
                 }
             }
-            createAccount.setOnClickListener {
-                navController.navigate(R.id.phoneNumberFragment,null,Utils.navOptions())
+            btnSignup.setOnClickListener {
+                navController.navigate(R.id.phoneNumberFragment, null, Utils.navOptions())
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.loginFlow.collect {
-                when(it){
-                    is UiStateObject.SUCCESS ->{
+                when (it) {
+                    is UiStateObject.SUCCESS -> {
                         showProgress(false)
                         storage.hasAccount = true
                         storage.phoneNumber = number
                         storage.firebaseToken = ""
-                        requireActivity().startActivity(Intent(requireContext(),MainActivity::class.java))
+                        requireActivity().startActivity(
+                            Intent(
+                                requireContext(),
+                                MainActivity::class.java
+                            )
+                        )
                         requireActivity().finish()
                         viewModel.reLogin()
                     }
-                    is UiStateObject.ERROR ->{
+                    is UiStateObject.ERROR -> {
                         storage.hasAccount = false
                         storage.phoneNumber = ""
                         storage.firebaseToken = ""
                         showProgress(false)
+                        if (it.message == "Bad Request") {
+                            bn.txForgotError.visibility = View.VISIBLE
+                        }
                         showMessage(it.message)
                     }
-                    is UiStateObject.LOADING ->{
+                    is UiStateObject.LOADING -> {
                         showProgress(true)
                     }
                     else -> Unit
@@ -106,6 +124,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
     }
+
     private val textWatcherName = object : TextWatcherWrapper() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (bn.inputPhoneNumber.text.toString().length == 17) {
@@ -113,7 +132,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
     }
-    private fun showProgress(status:Boolean){
+
+    private fun showProgress(status: Boolean) {
         bn.progressBar.isVisible = status
     }
 

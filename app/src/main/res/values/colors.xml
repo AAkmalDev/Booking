@@ -14,4 +14,7 @@
     <color name="lightGray">#AAB8C2</color>
     <color name="colorPrimaryDarkE">#223263</color>
     <color name="red_brbt">#FF0000</color>
+    <color name="stadion_color">#50CB93</color>
+    <color name="background_color">#FAFAFA</color>
+    <color name="text_color">#ABABAB</color>
 </resources>
