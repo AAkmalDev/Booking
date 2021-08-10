@@ -92,7 +92,6 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number) {
                                 bundleOf("phoneKey" to number),
                                 Utils.navOptions()
                             )
-                            viewModel.reRegister()
                         }
 
                         is UiStateObject.ERROR -> {
