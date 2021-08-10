@@ -16,6 +16,7 @@ import uz.koinot.stadion.utils.SingleBlock
 class AttachmentAdapter: RecyclerView.Adapter<AttachmentAdapter.VHolder>() {
 
     private var listener : SingleBlock<Photos>? = null
+    private var lll:((String)-> Unit)? = null
     private var acceptListener : SingleBlock<Photos>? = null
     private var rejectListener : SingleBlock<Photos>? = null
     private val list = ArrayList<Uri>()

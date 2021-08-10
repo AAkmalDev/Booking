@@ -32,11 +32,10 @@ class DashboardOrderAdapter : RecyclerView.Adapter<DashboardOrderAdapter.VHolder
                 layoutAccept.isVisible = false
                 userName.text =
                     "${if (d.firstName != "null") d.firstName else ""} ${if (d.lastName != "null") d.lastName else ""}"
-                startDate.text = d.startDate
-                endDate.text = d.endDate
-                day.text = d.time
+                timeOrder.text = "${d.startDate}-${d.endDate}"
+                textDate.text = d.time
                 sum.text = d.sum.toMoneyFormat()
-                phone1.text = if (d.phoneNumber != null) d.phoneNumber else d.originalPhoneNumber
+                textPhone.text = if (d.phoneNumber != null) d.phoneNumber else d.originalPhoneNumber
                 count.text = d.countOrder.toInt().toString()
                 btnAccept.setOnClickListener {
                     acceptListener?.invoke(d)

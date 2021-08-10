@@ -1,4 +1,4 @@
-package uz.koinot.stadion.ui.screens.dashboard
+package uz.koinot.stadion.ui.screens.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

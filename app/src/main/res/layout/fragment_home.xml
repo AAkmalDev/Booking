@@ -4,32 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_color"
     android:orientation="vertical"
     tools:context=".ui.screens.home.HomeFragment">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/robotomedium"
+            android:gravity="center"
             android:text="@string/stadiums"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/stadion_color"
+            android:textSize="24sp" />
 
         <ImageButton
             android:id="@+id/user_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center|end"
-            android:padding="16sp"
             android:background="?selectableItemBackgroundBorderless"
+            android:padding="16sp"
             android:src="@drawable/ic_baseline_person_outline_24" />
-    </FrameLayout>
+    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:progressBarStyleHorizontal"
@@ -39,12 +48,12 @@
         android:indeterminateBehavior="repeat"
         android:indeterminateDuration="10"
         android:indeterminateOnly="true"
-        android:visibility="gone"
         android:maxHeight="24dip"
         android:minHeight="24dip"
         android:progressBackgroundTint="#208afa"
         android:progressBackgroundTintMode="multiply"
-        />
+        android:visibility="gone" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -59,16 +68,17 @@
                 android:id="@+id/textNotStadium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="center"
-                android:text="@string/hali_stadion_qo_shmagan_ekansiz" />
+                android:text="@string/hali_stadion_qo_shmagan_ekansiz"
+                android:visibility="gone" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_rv"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="12dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_height="match_parent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="17dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_stadium" />
 
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

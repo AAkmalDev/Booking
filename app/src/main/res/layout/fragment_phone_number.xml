@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_color"
     android:orientation="vertical"
     tools:context=".ui.screens.auth.register.PhoneNumberFragment">
 
@@ -31,27 +31,32 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/brbt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="center"
-        android:id="@+id/brbt"
-        android:layout_marginTop="24dp"
-        android:textSize="24sp"
+        android:layout_marginTop="40dp"
         android:background="?selectableItemBackgroundBorderless"
-        android:textColor="#05FD00"
-        android:textStyle="bold"
-        android:padding="18dp"
-        android:text="BRBT" />
+        android:gravity="center"
+        android:text="BRBT"
+        android:fontFamily="@font/robotomedium"
+        android:textColor="@color/stadion_color"
+        android:textSize="@dimen/_36sdp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/brbt"
         android:layout_marginTop="34dp"
         android:orientation="vertical"
         android:padding="24dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Text_Input_Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -71,7 +76,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Text_Input_Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -92,7 +97,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Text_Input_Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -111,14 +116,15 @@
             </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/error_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/red"
             android:layout_marginTop="10dp"
             android:text="@string/password_should_same"
+            android:textColor="@color/red"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -127,11 +133,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/btn_bgn"
+            android:background="@drawable/btn_back_order"
             android:text="@string/register"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:cornerRadius="16dp" />
+            android:textColor="@color/white" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-</LinearLayout>
+</RelativeLayout>

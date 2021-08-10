@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.OrderAdapter
 import uz.koinot.stadion.databinding.FragmentOrderBinding
-import uz.koinot.stadion.ui.screens.home.BaseDialog
+import uz.koinot.stadion.ui.screens.dialog.BaseDialog
 import uz.koinot.stadion.utils.*
 
 
@@ -41,11 +41,8 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
             viewModel.orderFlow.collect {
                 when(it){
                     is UiStateList.SUCCESS ->{
-
                         if(it.data != null && it.data.isNotEmpty())
-
                                 adapter.submitList(it.data)
-
                     }
                     else -> Unit
                 }
@@ -58,7 +55,6 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
 
         bn.rvOrders.adapter = adapter
         bn.rvOrders.layoutManager = LinearLayoutManager(requireContext())
-
 
         bn.swipeRefresh.setOnRefreshListener {
             viewModel.getOder(stadiumId)
