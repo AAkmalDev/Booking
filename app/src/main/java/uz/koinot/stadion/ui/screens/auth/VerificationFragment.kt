@@ -1,10 +1,10 @@
 package uz.koinot.stadion.ui.screens.auth
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,12 +12,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.MainActivity
 import uz.koinot.stadion.R
 import uz.koinot.stadion.data.api.ApiService
-import uz.koinot.stadion.data.model.SmsReceiver
+import uz.koinot.stadion.data.model.SmsBroadcastReceiver
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentVerificationBinding
 import uz.koinot.stadion.ui.screens.auth.register.AuthViewModel
@@ -25,6 +26,7 @@ import uz.koinot.stadion.utils.TextWatcherWrapper
 import uz.koinot.stadion.utils.UiStateObject
 import uz.koinot.stadion.utils.Utils
 import uz.koinot.stadion.utils.showMessage
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,6 +46,8 @@ class VerificationFragment : Fragment(R.layout.fragment_verification) {
 
     private val viewModel: AuthViewModel by viewModels()
 
+    private var smsBroadcastReceiver: SmsBroadcastReceiver? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         phoneNumber = arguments?.getString("phoneKey", "") ?: ""
@@ -58,14 +62,14 @@ class VerificationFragment : Fragment(R.layout.fragment_verification) {
 
         startTimer()
 
+        startSmsUserConsent()
+
+        registerBroadcastReceiver()
+
         bn.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
-        SmsReceiver.setReceiveCodeListener {
-            Log.e("AAA", "SMS code is: $it")
-            bn.inputVerificationNumber.setText(it)
-        }
         if (isForgot) {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.verifyFlow.collect {
@@ -149,6 +153,32 @@ class VerificationFragment : Fragment(R.layout.fragment_verification) {
         }
     }
 
+    private fun getOtpFromMessage(message: String) { // This will match any 6 digit number in the message
+        val matcher = Pattern.compile("(|^)\\d{6}").matcher(message)
+        if (matcher.find()) {
+            bn.inputVerificationNumber.setText(matcher.group(0))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200) {
+            if (resultCode == Activity.RESULT_OK && data != null) { //That gives all message to us.
+                val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+                message?.let {
+                    getOtpFromMessage(message)
+                }
+            }
+        }
+    }
+
+    private fun startSmsUserConsent() {
+        val client = SmsRetriever.getClient(requireContext())
+        client.startSmsUserConsent(null)
+            .addOnSuccessListener { /**/ }
+            .addOnFailureListener { /**/ }
+    }
+
 
     private fun btnClick() {
         val number = bn.inputVerificationNumber.text.toString().trim()
@@ -179,8 +209,31 @@ class VerificationFragment : Fragment(R.layout.fragment_verification) {
         }
     }
 
+
+    private fun registerBroadcastReceiver() {
+        smsBroadcastReceiver = SmsBroadcastReceiver()
+        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
+            object : SmsBroadcastReceiver.SmsBroadcastReceiverListener {
+                override fun onSuccess(intent: Intent?) {
+                    startActivityForResult(intent, 200)
+                }
+
+                override fun onFailure() {}
+            }
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        context?.registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
     private fun showProgress(status: Boolean) {
         bn.progressBar.isVisible = status
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        try {
+            if (smsBroadcastReceiver != null)
+                context?.unregisterReceiver(smsBroadcastReceiver)
+        } catch (ex: IllegalArgumentException) {
+        }
     }
 
     override fun onDestroy() {
