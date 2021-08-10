@@ -127,7 +127,7 @@ dependencies {
 
     // ImagePicker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
-//    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
+    //implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
 
 
     implementation "com.github.iwgang:countdownview:2.1.6"
@@ -138,6 +138,8 @@ dependencies {
     implementation 'id.zelory:compressor:3.0.0'
     implementation 'top.zibin:Luban:1.0.8'
     implementation 'me.shaohui.advancedluban:library:1.3.5'
+    implementation(name: 'app', ext: 'aar')
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.android.tools.build:aapt2:4.2.2-7147631'
 
     implementation 'com.google.android.gms:play-services-auth:19.2.0'

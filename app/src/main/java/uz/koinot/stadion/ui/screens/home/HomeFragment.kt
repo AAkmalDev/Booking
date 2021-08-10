@@ -22,10 +22,11 @@ import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.AuthActivity
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.StadiumAdapter
-import uz.koinot.stadion.app.App
 import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentHomeBinding
+import uz.koinot.stadion.ui.screens.dialog.BaseDialog
+import uz.koinot.stadion.ui.screens.dialog.ImageDialog
 import uz.koinot.stadion.utils.*
 import java.io.File
 import javax.inject.Inject

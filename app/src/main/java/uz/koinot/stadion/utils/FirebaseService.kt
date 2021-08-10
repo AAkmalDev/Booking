@@ -91,7 +91,7 @@ class FirebaseService : FirebaseMessagingService() {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.group_png))
+                .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.ic_brbt))
                 .setStyle(bigStyle)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)

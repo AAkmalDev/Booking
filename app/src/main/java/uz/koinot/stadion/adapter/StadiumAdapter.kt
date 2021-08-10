@@ -1,5 +1,6 @@
 package uz.koinot.stadion.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,13 +35,18 @@ class StadiumAdapter : RecyclerView.Adapter<StadiumAdapter.VHolder>() {
     override fun getItemCount() = list.size
 
     inner class VHolder(val view: ItemStadiumBinding) : RecyclerView.ViewHolder(view.root) {
+        @SuppressLint("SetTextI18n")
         @RequiresApi(Build.VERSION_CODES.Q)
         fun bind(d: Stadium) {
             view.apply {
+                stdDayPrice.text = d.price_day_time.toString()
+                stdNightPrice.text = d.price_night_time.toString()
+                timeTill.text = d.change_price_time
                 stdName.text = d.name
-                likeCount.text = d.stadium_like.toMoneyFormat()
-                verifyCount.text = d.countVerify.toString()
-                notVerifyCount.text = d.countNotVerify.toString()
+                likeCount.text = d.stadium_like.toString()
+                successfulCount.text = d.countVerify.toString()
+                failedOrdersCount.text = d.countNotVerify.toString()
+                timeStd.text = "${d.opening_time}:${d.closing_time}"
                 val imageAdapter = RvImageAdapter(d, d.photos)
                 rvImages.adapter = imageAdapter
 

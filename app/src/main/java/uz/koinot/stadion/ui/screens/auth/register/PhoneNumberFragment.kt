@@ -22,7 +22,7 @@ import uz.koinot.stadion.data.api.AuthService
 import uz.koinot.stadion.data.model.Register
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentPhoneNumberBinding
-import uz.koinot.stadion.ui.screens.home.GoToTelegramDialog
+import uz.koinot.stadion.ui.screens.dialog.GoToTelegramDialog
 import uz.koinot.stadion.utils.*
 import javax.inject.Inject
 
@@ -118,7 +118,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number) {
 
                         is UiStateObject.ERROR -> {
                             showProgress(false)
-                            if (it.fromServer) {
+                            if (!it.fromServer) {
                                 val dialog = GoToTelegramDialog()
                                 dialog.setOnDeleteListener {
                                     dialog.dismiss()
@@ -129,9 +129,16 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number) {
                                 dialog.show(childFragmentManager, "ggg")
                             } else {
                                 showMessage(it.message)
+                                val dialog = GoToTelegramDialog()
+                                dialog.setOnDeleteListener {
+                                    dialog.dismiss()
+                                    val intent = Intent(Intent.ACTION_VIEW)
+                                    intent.data = Uri.parse("https://t.me/brbtbot")
+                                    requireContext().startActivity(intent)
+                                }
+                                dialog.show(childFragmentManager, "ggg")
                             }
                         }
-
                         is UiStateObject.LOADING -> {
                             showProgress(true)
                         }
