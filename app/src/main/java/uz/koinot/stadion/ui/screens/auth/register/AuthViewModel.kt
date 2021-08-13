@@ -6,12 +6,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import uz.koinot.stadion.data.model.Order
 import uz.koinot.stadion.data.model.Register
-import uz.koinot.stadion.data.model.TokenBody
 import uz.koinot.stadion.data.repository.MainRepository
 import uz.koinot.stadion.data.storage.LocalStorage
-import uz.koinot.stadion.utils.UiStateList
 import uz.koinot.stadion.utils.UiStateObject
 import uz.koinot.stadion.utils.userMessage
 import javax.inject.Inject

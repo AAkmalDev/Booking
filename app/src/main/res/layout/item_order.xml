@@ -30,13 +30,14 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/stadium_name"
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:textColor="@color/text_color"
             android:fontFamily="@font/roboto_medium"
-            android:text="Santiago Bernabeu stadium"
+            android:text="Santiago"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/image_linear"
             app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +60,7 @@
                 android:layout_alignParentTop="true"
                 android:text="2020-12-21"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
 
             <TextView
@@ -70,7 +71,7 @@
                 android:layout_alignParentEnd="true"
                 android:text="15:00-16:00"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
 
@@ -90,7 +91,7 @@
                 android:layout_alignParentTop="true"
                 android:text="@string/number_of_visits"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
             <TextView
                 android:id="@+id/count"
@@ -100,7 +101,7 @@
                 android:layout_alignParentEnd="true"
                 android:text="3321"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
 
@@ -120,7 +121,7 @@
                 android:layout_alignParentTop="true"
                 android:text="@string/payment"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
 
             <TextView
@@ -132,7 +133,7 @@
                 android:layout_toStartOf="@+id/sum_text"
                 android:text="70000"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
             <TextView
                 android:id="@+id/sum_text"
@@ -142,35 +143,24 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/so_m"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
 
         <TextView
+            app:layout_constraintVertical_bias="0.6"
             android:id="@+id/text_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/roboto_medium"
             android:text="+998 90 123 45 67"
             android:textColor="@color/stadion_color"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toTopOf="@id/layout_accept"
             app:layout_constraintEnd_toStartOf="@+id/call_phone"
             app:layout_constraintTop_toBottomOf="@+id/linear_4" />
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Qudratjon Komilov"
-            android:textColor="@color/text_color"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/call_phone"
-            app:layout_constraintTop_toBottomOf="@+id/text_phone" />
 
 
         <ImageView
