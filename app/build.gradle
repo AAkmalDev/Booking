@@ -16,9 +16,9 @@ android {
         applicationId "uz.koinot.stadion"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 5
+        versionCode 6
         multiDexEnabled true
-        versionName "1.0.5"
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -135,7 +135,6 @@ dependencies {
     implementation 'id.zelory:compressor:3.0.0'
     implementation 'top.zibin:Luban:1.0.8'
     implementation 'me.shaohui.advancedluban:library:1.3.5'
-    implementation(name: 'app', ext: 'aar')
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.android.tools.build:aapt2:4.2.2-7147631'
 

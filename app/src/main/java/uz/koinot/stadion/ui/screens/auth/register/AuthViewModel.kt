@@ -28,16 +28,15 @@ class AuthViewModel @Inject constructor(
             val res = repository.register(data)
             if (res.success == 200) {
                 _registerFlow.value = UiStateObject.SUCCESS(res.message)
+                _registerFlow.value = UiStateObject.EMPTY
             } else {
                 _registerFlow.value = UiStateObject.ERROR(res.message)
+                _registerFlow.value = UiStateObject.EMPTY
             }
         } catch (e: Exception) {
             _registerFlow.value = UiStateObject.ERROR(e.userMessage() ?: "not found")
+            _registerFlow.value = UiStateObject.EMPTY
         }
-    }
-
-    fun reRegister() {
-        _registerFlow.value = UiStateObject.EMPTY
     }
 
     fun reBot() {

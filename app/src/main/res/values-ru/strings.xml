@@ -7,7 +7,6 @@
     <string name="archive">Архив</string>
     <string name="dashboard">Приборная панель</string>
     <string name="stadiums">Стадионы</string>
-    <string name="mapKey" translatable="false">AIzaSyBGxa1BZRvZeCA00GNeFE2CIIY-QJqr04c</string>
     <string name="welcome">Добро пожаловать</string>
     <string name="request_code_again">Eщё раз через</string>
     <string name="timer">00:59</string>
