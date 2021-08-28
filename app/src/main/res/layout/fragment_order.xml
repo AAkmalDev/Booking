@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.screens.order.OrderFragment">
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:progressBarStyleHorizontal"
@@ -32,18 +33,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar">
+
+        <Button
+            android:id="@+id/client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_back"
+            android:drawableStart="@drawable/ic_short"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Mijoz"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_back"
+            android:drawableStart="@drawable/ic_filter"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Filter"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/swipeRefresh"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_bar">
+        app:layout_constraintTop_toBottomOf="@id/linear">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOrders"
-            tools:listitem="@layout/item_order"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_order" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

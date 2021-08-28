@@ -2,6 +2,8 @@ package uz.koinot.stadion.ui.screens.order.create
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -11,7 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import com.aminography.primecalendar.PrimeCalendar
+import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primedatepicker.picker.PrimeDatePicker
+import com.aminography.primedatepicker.picker.callback.MultipleDaysPickCallback
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -22,10 +27,11 @@ import uz.koinot.stadion.adapter.UserAdapter
 import uz.koinot.stadion.data.model.CreateOrder
 import uz.koinot.stadion.data.storage.LocalStorage
 import uz.koinot.stadion.databinding.FragmentCreateOrderBinding
-import uz.koinot.stadion.ui.screens.dialog.BaseDialog
 import uz.koinot.stadion.utils.*
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
@@ -40,6 +46,7 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
     private var stadiumId = 0L
     private val adapter = UserAdapter()
     private var currentPhoneNumber = ""
+    private var dateTime: ArrayList<String>? = null
     var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +57,7 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _bn = FragmentCreateOrderBinding.bind(view)
 
@@ -72,12 +79,20 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                 inputPhoneNumber.setText(it.phoneNumber)
             }
             inputDay.setOnClickListener {
-                val dialog = DatePickerDialog.newInstance { _, year, monthOfYear, dayOfMonth ->
-                    inputDay.setText("${year.getString()}-${(monthOfYear + 1).getString()}-${dayOfMonth.getString()}")
-                }
-                dialog.minDate = Calendar.getInstance()
-                dialog.show(parentFragmentManager, "BBB")
-
+                val list = ArrayList<PrimeCalendar>()
+                val today = CivilCalendar()
+                val dataPicker = PrimeDatePicker.dialogWith(today)
+                    .pickMultipleDays { multipleDays ->
+                        for (calendar in multipleDays!!) {
+                            dateTime = ArrayList()
+                            val dateFormat = SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime())
+                            dateTime?.add(dateFormat)
+                            inputDay.setText(dateTime.toString())
+                        }
+                    }
+                    .initiallyPickedMultipleDays(list)
+                    .build()
+                dataPicker.show(parentFragmentManager,"asd")
             }
             inputStartDate.setOnClickListener {
                 TimePickerDialog.newInstance({ _, hourOfDay, minute, _ ->
@@ -160,7 +175,7 @@ class CreateOrderFragment : Fragment(R.layout.fragment_create_order) {
                             CreateOrder(
                                 null,
                                 stadiumId,
-                                day,
+                                dateTime!!,
                                 startTime,
                                 endTime,
                                 number

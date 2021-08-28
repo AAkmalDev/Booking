@@ -4,10 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.OrderAdapter
+import uz.koinot.stadion.data.model.Order
 import uz.koinot.stadion.databinding.FragmentOrderBinding
 import uz.koinot.stadion.ui.screens.dialog.BaseDialog
 import uz.koinot.stadion.utils.*
@@ -28,21 +29,25 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
     private var _bn: FragmentOrderBinding? = null
     private val bn get() = _bn!!
     private val adapter = OrderAdapter()
-    private  var stadiumId:Long = 0
+    private var stadiumId: Long = 0
+    private var orderList: ArrayList<Order>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        stadiumId = arguments?.getLong(CONSTANTS.STADION_ID,0)!!
-        Log.d("AAA","fragment stadiumId: $stadiumId")
+        stadiumId = arguments?.getLong(CONSTANTS.STADION_ID, 0)!!
+        Log.d("AAA", "fragment stadiumId: $stadiumId")
 
         viewModel.getOder(stadiumId)
 
         lifecycleScope.launchWhenCreated {
             viewModel.orderFlow.collect {
-                when(it){
-                    is UiStateList.SUCCESS ->{
-                        if(it.data != null && it.data.isNotEmpty())
-                                adapter.submitList(it.data)
+                when (it) {
+                    is UiStateList.SUCCESS -> {
+                        if (it.data != null && it.data.isNotEmpty()) {
+                            adapter.submitList(it.data)
+                            orderList = ArrayList()
+                            orderList?.addAll(it.data)
+                        }
                     }
                     else -> Unit
                 }
@@ -61,7 +66,29 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
         }
 
         bn.btnAddOrder.setOnClickListener {
-            findNavController().navigate(R.id.createOrderFragment, bundleOf(CONSTANTS.STADION_ID to stadiumId),Utils.navOptions())
+            findNavController().navigate(
+                R.id.createOrderFragment,
+                bundleOf(CONSTANTS.STADION_ID to stadiumId),
+                Utils.navOptions()
+            )
+        }
+
+
+        bn.client.setOnClickListener {
+        val hashMap = HashMap<String,ArrayList<Order>>()
+            for (order in  orderList!!){
+                var orList = ArrayList<Order>()
+                if(hashMap.containsKey(order.phoneNumber)) {
+                    orList = hashMap[order.phoneNumber]!!
+                }
+                orList.add(order)
+                hashMap.put(order.phoneNumber!!,orList)
+
+                val list1 = setOf<String>(order.phoneNumber.toString())
+                Log.d("OnViewCreated", "onViewCreated: $list1")
+            }
+            Log.d("OnViewCreated2", "onViewCreated: ${hashMap.toString()}")
+            Log.d("OnViewCreated2", "onViewCreated: ${hashMap.keys}")
         }
 
         collects()
@@ -72,13 +99,13 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
             }
         }
 
-        adapter.setOnCancelListener {orderId->
-            val dialog = BaseDialog(getString(R.string.cancel),getString(R.string.cancel_order))
+        adapter.setOnCancelListener { orderId ->
+            val dialog = BaseDialog(getString(R.string.cancel), getString(R.string.cancel_order))
             dialog.setOnDeleteListener {
                 dialog.dismiss()
                 viewModel.rejectOrder(orderId)
             }
-            dialog.show(childFragmentManager,"asd")
+            dialog.show(childFragmentManager, "asd")
         }
 
         adapter.setOnRejectListener {
@@ -87,11 +114,21 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
             }
         }
         adapter.setOnPhoneNumber1Listener {
-            requireActivity().startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${if(it.contains("+")) it else "+$it"}")))
+            requireActivity().startActivity(
+                Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.parse("tel:${if (it.contains("+")) it else "+$it"}")
+                )
+            )
         }
 
         adapter.setOnPhoneNumber2Listener {
-            requireActivity().startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${if(it.contains("+")) it else "+$it"}")))
+            requireActivity().startActivity(
+                Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.parse("tel:${if (it.contains("+")) it else "+$it"}")
+                )
+            )
         }
 
     }
@@ -99,15 +136,15 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
     private fun collects() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.orderFlow.collect {
-                when(it){
-                    is UiStateList.SUCCESS ->{
+                when (it) {
+                    is UiStateList.SUCCESS -> {
                         showProgress(false)
-                        if(it.data != null && it.data.isNotEmpty()){
+                        if (it.data != null && it.data.isNotEmpty()) {
                             bn.apply {
                                 textNoOrder.isVisible = false
                                 rvOrders.isVisible = true
                             }
-                        }else{
+                        } else {
                             bn.apply {
                                 textNoOrder.isVisible = true
                                 rvOrders.isVisible = false
@@ -115,14 +152,14 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
                         }
 
                     }
-                    is UiStateList.ERROR ->{
+                    is UiStateList.ERROR -> {
                         showProgress(false)
                         bn.apply {
                             textNoOrder.isVisible = true
                             rvOrders.isVisible = false
                         }
                     }
-                    is UiStateList.LOADING ->{
+                    is UiStateList.LOADING -> {
                         showProgress(true)
                         bn.apply {
                             textNoOrder.isVisible = false
@@ -135,16 +172,16 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.acceptFlow.collect {
-                when(it){
-                    is UiStateObject.SUCCESS ->{
+                when (it) {
+                    is UiStateObject.SUCCESS -> {
                         showProgress(false)
                         viewModel.getOder(stadiumId)
                     }
-                    is UiStateObject.ERROR ->{
+                    is UiStateObject.ERROR -> {
                         showProgress(false)
                         showMessage("Xatolik")
                     }
-                    is UiStateObject.LOADING ->{
+                    is UiStateObject.LOADING -> {
                         showProgress(true)
                     }
                     else -> Unit
@@ -153,16 +190,16 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.rejectFlow.collect {
-                when(it){
-                    is UiStateObject.SUCCESS ->{
+                when (it) {
+                    is UiStateObject.SUCCESS -> {
                         showProgress(false)
                         viewModel.getOder(stadiumId)
                     }
-                    is UiStateObject.ERROR ->{
+                    is UiStateObject.ERROR -> {
                         showProgress(false)
                         showMessage(getString(R.string.error))
                     }
-                    is UiStateObject.LOADING ->{
+                    is UiStateObject.LOADING -> {
                         showProgress(true)
                     }
                     else -> Unit
@@ -171,7 +208,7 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
         }
     }
 
-    private fun showProgress(status:Boolean){
+    private fun showProgress(status: Boolean) {
         bn.swipeRefresh.isRefreshing = false
         bn.progressBar.isVisible = status
     }

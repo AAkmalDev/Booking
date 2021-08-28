@@ -92,7 +92,9 @@
     <string name="enter_the_password">Введите 6-значный пароль</string>
     <string name="your_balance">Ваш баланс:</string>
     <string name="o_zbek">Узбекский</string>
-    <string name="russia">Россия</string>
+    <string name="russia">Русский</string>
     <string name="kirill">Ўзбек</string>
     <string name="til_o_zgartirish">Til o\'zgartirish</string>
+    <string name="count_order">Count Order</string>
+    <string name="search_order">Search order</string>
 </resources>

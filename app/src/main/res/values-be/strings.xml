@@ -95,4 +95,6 @@
     <string name="russia">Russia</string>
     <string name="kirill">Ўзбек</string>
     <string name="til_o_zgartirish">Тил ўзгартириш</string>
+    <string name="count_order">Count Order</string>
+    <string name="search_order">Search order</string>
 </resources>
