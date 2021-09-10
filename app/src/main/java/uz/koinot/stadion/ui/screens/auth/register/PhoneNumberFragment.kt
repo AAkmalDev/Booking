@@ -76,15 +76,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number) {
             })
             btnPhoneNumber.setOnClickListener {
                 number = bn.inputPhoneNumber.text.toString().replace(" ", "")
-                checkPermissionState(Manifest.permission.RECEIVE_SMS, {
-                    checkPermissionState(Manifest.permission.READ_SMS, {
-                        send()
-                    }, {
-                        send()
-                    })
-                }, {
-                    send()
-                })
+                send()
             }
 
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -100,7 +92,6 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number) {
                                 bundleOf("phoneKey" to number),
                                 Utils.navOptions()
                             )
-                            viewModel.reRegister()
                         }
 
                         is UiStateObject.ERROR -> {

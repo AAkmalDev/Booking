@@ -6,12 +6,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import uz.koinot.stadion.data.model.Order
 import uz.koinot.stadion.data.model.Register
-import uz.koinot.stadion.data.model.TokenBody
 import uz.koinot.stadion.data.repository.MainRepository
 import uz.koinot.stadion.data.storage.LocalStorage
-import uz.koinot.stadion.utils.UiStateList
 import uz.koinot.stadion.utils.UiStateObject
 import uz.koinot.stadion.utils.userMessage
 import javax.inject.Inject
@@ -31,16 +28,15 @@ class AuthViewModel @Inject constructor(
             val res = repository.register(data)
             if (res.success == 200) {
                 _registerFlow.value = UiStateObject.SUCCESS(res.message)
+                _registerFlow.value = UiStateObject.EMPTY
             } else {
                 _registerFlow.value = UiStateObject.ERROR(res.message)
+                _registerFlow.value = UiStateObject.EMPTY
             }
         } catch (e: Exception) {
             _registerFlow.value = UiStateObject.ERROR(e.userMessage() ?: "not found")
+            _registerFlow.value = UiStateObject.EMPTY
         }
-    }
-
-    fun reRegister() {
-        _registerFlow.value = UiStateObject.EMPTY
     }
 
     fun reBot() {

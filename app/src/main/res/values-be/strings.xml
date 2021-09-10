@@ -7,7 +7,6 @@
     <string name="archive">Архив</string>
     <string name="dashboard">Бошқарув панели</string>
     <string name="stadiums">Стадионлар</string>
-    <string name="mapKey" translatable="false">AIzaSyBGxa1BZRvZeCA00GNeFE2CIIY-QJqr04c</string>
     <string name="welcome">Хуш келибсиз</string>
     <string name="request_code_again">Яна бир марта</string>
     <string name="timer">00:59</string>
@@ -96,4 +95,6 @@
     <string name="russia">Russia</string>
     <string name="kirill">Ўзбек</string>
     <string name="til_o_zgartirish">Тил ўзгартириш</string>
+    <string name="count_order">Count Order</string>
+    <string name="search_order">Search order</string>
 </resources>

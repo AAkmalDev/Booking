@@ -7,7 +7,6 @@
     <string name="archive">Arxiv</string>
     <string name="dashboard">Boshqaruv paneli</string>
     <string name="stadiums">Stadionlar</string>
-    <string name="mapKey" translatable="false">AIzaSyBGxa1BZRvZeCA00GNeFE2CIIY-QJqr04c</string>
     <string name="welcome">Xush kelibsiz</string>
     <string name="request_code_again">Yana bir marta</string>
     <string name="timer">00:59</string>
@@ -96,4 +95,6 @@
     <string name="russia">Russia</string>
     <string name="kirill">Ўзбек</string>
     <string name="til_o_zgartirish">Til o\'zgartirish</string>
+    <string name="count_order">Count Order</string>
+    <string name="search_order">Search order</string>
 </resources>

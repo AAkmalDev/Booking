@@ -17,13 +17,30 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                app:contentInsetStart="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back"
-                app:title="@string/app_name"
-                app:titleTextColor="@color/stadion_color" />
+                app:menu="@menu/filter_menu"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/search_order"
+                    app:endIconMode="clear_text"
+                    app:startIconContentDescription="@string/search_order"
+                    app:startIconDrawable="@drawable/ic_baseline_search_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -39,9 +56,9 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 </LinearLayout>

@@ -100,7 +100,7 @@
             <LinearLayout
                 android:id="@+id/linear_line"
                 android:layout_width="1.5dp"
-                android:layout_height="85dp"
+                android:layout_height="105dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ABABAB"
@@ -159,6 +159,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/successful_count" />
 
             <TextView
+                android:id="@+id/count_order_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/count_order"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_std" />
+
+            <TextView
+                android:id="@+id/count_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="6dp"
+                android:text="3"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintRight_toRightOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/time_std" />
+
+            <TextView
                 android:id="@+id/time_std"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,7 +192,7 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/failed_orders_text" />
+                app:layout_constraintTop_toBottomOf="@+id/failed_orders_count" />
 
             <ImageView
                 android:id="@+id/son_image"
@@ -260,6 +284,31 @@
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintStart_toEndOf="@id/std_night_price"
                 app:layout_constraintTop_toBottomOf="@+id/time_till" />
+
+            <TextView
+                android:id="@+id/total_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="5dp"
+                android:text="200 000"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/std_night_price" />
+
+            <TextView
+                android:id="@+id/std_price_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/so_m"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@id/total_sum"
+                app:layout_constraintTop_toBottomOf="@+id/std_night_price" />
+
 
             <ImageView
                 android:layout_width="24dp"
