@@ -32,9 +32,9 @@ class LocalStorage @Inject constructor(@ApplicationContext context: Context) {
         set(value) = sharedPref.edit().putString(CONSTANTS.LAST_NAME, value).apply()
         get() = sharedPref.getString(CONSTANTS.LAST_NAME, "")!!
 
-    var hasAccount: Boolean
-        set(value) = sharedPref.edit().putBoolean(CONSTANTS.HAS_ACCOUNT, value).apply()
-        get() = sharedPref.getBoolean(CONSTANTS.HAS_ACCOUNT, false)
+    var hasAccount: String
+        set(value) = sharedPref.edit().putString(CONSTANTS.HAS_ACCOUNT, value).apply()
+        get() = sharedPref.getString(CONSTANTS.HAS_ACCOUNT, "")!!
 
     var currentStadiumId: Long
         set(value) = sharedPref.edit { putLong(::currentStadiumId.name, value) }
@@ -43,4 +43,8 @@ class LocalStorage @Inject constructor(@ApplicationContext context: Context) {
     var language: String
         set(value) = sharedPref.edit { putString(::language.name, value) }
         get() = sharedPref.getString(::language.name, "")!!
+
+    var userPhoneNumber: String
+        set(value) = sharedPref.edit { putString(::userPhoneNumber.name, value) }
+        get() = sharedPref.getString(::userPhoneNumber.name, "")!!
 }

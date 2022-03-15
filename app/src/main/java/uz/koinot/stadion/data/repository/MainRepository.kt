@@ -18,6 +18,11 @@ class MainRepository @Inject constructor(
     fun setAllOrder(list: List<Order>) = orderDao.setAllOrder(list)
     fun getAllOrder(id: Long) = orderDao.getAllOrders(id)
     fun removeAllOrder() = orderDao.removeAllOrders()
+    fun setUserOrder(orderHistory: OrderHistory) = orderDao.setUserOrder(orderHistory)
+    fun getUserOrder() = orderDao.getUserOrder()
+    fun setLikeStadium(stadiumOrder: StadiumOrder) = orderDao.setLikeStadium(stadiumOrder)
+    fun unLikeStadium(id:Int) = orderDao.unLikeStadium(id)
+    fun getStadiumLikeById(id:Int) = orderDao.getStadiumLikeById(id)
 
     suspend fun setAllStadium(list: List<Stadium>) = orderDao.setAllStadium(list)
     suspend fun getAllStadium() = orderDao.getAllStadiums()
@@ -52,7 +57,11 @@ class MainRepository @Inject constructor(
 
     suspend fun createPassword(password: String) =
         api.newPassword(password)
+
     suspend fun getUser() = api.getUser()
 
+    suspend fun getUserStadium() = authApi.getUserStadium()
+    suspend fun getStadiumById(id: Int) = authApi.getStadiumById(id)
+    suspend fun userOrder(data: CreateUserOrder) = authApi.userOrder(data)
 
 }

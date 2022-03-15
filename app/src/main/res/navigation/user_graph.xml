@@ -7,7 +7,22 @@
 
     <fragment
         android:id="@+id/stadiumFragment"
-        android:name="uz.koinot.stadion.ui.screens.client.StadiumFragment"
+        android:name="uz.koinot.stadion.ui.screens.userclient.StadiumFragment"
         android:label="fragment_stadium"
         tools:layout="@layout/fragment_stadium" />
+    <fragment
+        android:id="@+id/userOrderFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.userorder.UserOrderFragment"
+        android:label="fragment_user_order"
+        tools:layout="@layout/fragment_user_order" />
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.orderhistory.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
+    <fragment
+        android:id="@+id/likeStadiumFragment"
+        android:name="uz.koinot.stadion.ui.screens.like.LikeStadiumFragment"
+        android:label="fragment_like_stadium"
+        tools:layout="@layout/fragment_like_stadium" />
 </navigation>

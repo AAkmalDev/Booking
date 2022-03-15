@@ -64,12 +64,23 @@ class SplashActivity : AppCompatActivity() {
     private fun unSplash() {
         lifecycleScope.launchWhenCreated {
             delay(1500)
-            if (!storage.hasAccount) {
-                startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
-                finish()
-            } else {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                finish()
+            when (storage.hasAccount) {
+                "" -> {
+                    startActivity(Intent(this@SplashActivity, MenuActivity::class.java))
+                    finish()
+                }
+                "client" -> {
+                    startActivity(Intent(this@SplashActivity, MenuActivity::class.java))
+                    finish()
+                }
+                "user" -> {
+                    startActivity(Intent(this@SplashActivity, MenuActivity::class.java))
+                    finish()
+                }
+                "registerclient" -> {
+                    startActivity(Intent(this@SplashActivity, MenuActivity::class.java))
+                    finish()
+                }
             }
         }
     }

@@ -93,7 +93,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 when (it) {
                     is UiStateObject.SUCCESS -> {
                         showProgress(false)
-                        storage.hasAccount = true
+                        storage.hasAccount = "registerclient"
                         storage.phoneNumber = number
                         storage.firebaseToken = ""
                         requireActivity().startActivity(
@@ -106,7 +106,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         viewModel.reLogin()
                     }
                     is UiStateObject.ERROR -> {
-                        storage.hasAccount = false
+                        storage.hasAccount = ""
                         storage.phoneNumber = ""
                         storage.firebaseToken = ""
                         showProgress(false)

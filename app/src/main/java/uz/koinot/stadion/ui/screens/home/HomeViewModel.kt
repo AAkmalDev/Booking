@@ -13,11 +13,9 @@ import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.data.repository.MainRepository
 import uz.koinot.stadion.utils.UiStateList
 import uz.koinot.stadion.utils.UiStateObject
-import uz.koinot.stadion.utils.compress
 import uz.koinot.stadion.utils.userMessage
 import java.io.File
 import javax.inject.Inject
-import kotlin.random.Random
 
 
 @HiltViewModel

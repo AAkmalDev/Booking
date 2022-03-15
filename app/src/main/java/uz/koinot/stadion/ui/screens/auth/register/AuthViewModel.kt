@@ -89,7 +89,7 @@ class AuthViewModel @Inject constructor(
             val result = repository.verifyCode(code, phoneNumber)
             if (result.success == 202) {
                 storage.accessToken = result.objectKoinot?.accessToken!!
-                storage.hasAccount = true
+                storage.hasAccount = "registerclient"
                 storage.firebaseToken = ""
                 _verifyFlow.value = UiStateObject.SUCCESS("Success")
             } else {

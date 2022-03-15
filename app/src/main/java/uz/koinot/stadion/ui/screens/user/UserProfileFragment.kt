@@ -66,7 +66,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             val dialog =
                 BaseDialog(getString(R.string.exit), getString(R.string.do_you_want_to_exit))
             dialog.setOnDeleteListener {
-                storage.hasAccount = false
+                storage.hasAccount = ""
                 dialog.dismiss()
                 storage.firebaseToken = ""
                 requireActivity().startActivity(Intent(requireContext(), AuthActivity::class.java))

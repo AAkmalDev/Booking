@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.PagerFragment">
+    tools:context=".ui.screens.pager.PagerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,24 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:menu="@menu/filter_menu"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textField"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/search_order"
-                    app:endIconMode="clear_text"
-                    app:startIconContentDescription="@string/search_order"
-                    app:startIconDrawable="@drawable/ic_baseline_search_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/search_order"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </com.google.android.material.appbar.MaterialToolbar>
+                app:navigationIcon="@drawable/ic_baseline_arrow_back"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"

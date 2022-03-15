@@ -49,7 +49,7 @@ class StadiumAdapter : RecyclerView.Adapter<StadiumAdapter.VHolder>() {
                 timeStd.text = "${d.opening_time}-${d.closing_time}"
                 countOrder.text = d.count_order.toInt().toString()
                 totalSum.text = d.money.toMoneyFormat()
-                val imageAdapter = RvImageAdapter(d, d.photos)
+                val imageAdapter = RvImageAdapter(d.photos)
                 rvImages.adapter = imageAdapter
 
                 imageAdapter.setOnClickListener { stadium, pos ->

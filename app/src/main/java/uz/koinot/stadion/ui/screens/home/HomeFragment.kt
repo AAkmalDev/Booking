@@ -180,7 +180,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SwipeRefreshLayout.OnRefr
                             }
 
                             if (it.code == 401) {
-                                storage.hasAccount = false
+                                storage.hasAccount = ""
                                 requireActivity().startActivity(
                                     Intent(
                                         requireContext(),

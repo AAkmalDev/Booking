@@ -31,5 +31,12 @@ interface AuthService {
         @Path("phoneNumber") phoneNumber: String
     ): ResponseObject<TokenBody>
 
+    @GET("/koinot/stadium")
+    suspend fun getUserStadium(): ResponseObject<StadiumData>
 
+    @GET("/koinot/stadium/{id}")
+    suspend fun getStadiumById(@Path("id") id: Int): ResponseObject<StadiumOrder>
+
+    @POST("/koinot/order/clientCreate")
+    suspend fun userOrder(@Body data: CreateUserOrder): ResponseObject<Any>
 }

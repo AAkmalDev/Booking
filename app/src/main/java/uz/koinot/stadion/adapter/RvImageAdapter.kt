@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import uz.koinot.stadion.R
 import uz.koinot.stadion.data.model.Photos
-import uz.koinot.stadion.data.model.Stadium
 import uz.koinot.stadion.databinding.RvImageBinding
 import uz.koinot.stadion.utils.SingleBlock
 
-class RvImageAdapter(val stadium: Stadium, val list: List<Photos>) :
+class RvImageAdapter(val list: List<Photos>) :
     RecyclerView.Adapter<RvImageAdapter.VHolder>() {
 
     private var imageListener: ((List<Photos>, Int) -> Unit)? = null

@@ -31,12 +31,15 @@
     </fragment>
     <fragment
         android:id="@+id/pagerFragment"
-        android:name="uz.koinot.stadion.ui.screens.PagerFragment"
+        android:name="uz.koinot.stadion.ui.screens.pager.PagerFragment"
         android:label="fragment_pager"
         tools:layout="@layout/fragment_pager" >
         <action
             android:id="@+id/action_pagerFragment_to_oderFragment"
             app:destination="@id/oderFragment" />
+        <action
+            android:id="@+id/action_pagerFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/createStadiumFragment"
@@ -67,4 +70,9 @@
         android:name="uz.koinot.stadion.ui.screens.user.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="uz.koinot.stadion.ui.screens.order.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" />
 </navigation>

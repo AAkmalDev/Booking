@@ -1,13 +1,8 @@
 package uz.koinot.stadion.ui.screens.order
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
-import androidx.core.os.bundleOf
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,97 +14,85 @@ import kotlinx.coroutines.flow.collect
 import uz.koinot.stadion.R
 import uz.koinot.stadion.adapter.OrderAdapter
 import uz.koinot.stadion.data.model.Order
-import uz.koinot.stadion.databinding.FragmentOrderBinding
-import uz.koinot.stadion.ui.screens.dialog.BaseDialog
+import uz.koinot.stadion.databinding.FragmentFilterBinding
 import uz.koinot.stadion.utils.*
 
-
 @AndroidEntryPoint
-class OrderFragment : Fragment(R.layout.fragment_order) {
+class FilterFragment : Fragment(R.layout.fragment_filter) {
+
 
     private val viewModel: OrderViewModel by viewModels()
-    private var _bn: FragmentOrderBinding? = null
+    private var _bn: FragmentFilterBinding? = null
     private val bn get() = _bn!!
     private val adapter = OrderAdapter()
     private var stadiumId: Long = 0
+    private var module: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        stadiumId = arguments?.getLong(CONSTANTS.STADION_ID, 0)!!
-        Log.d("AAA", "fragment stadiumId: $stadiumId")
+        stadiumId = arguments?.getLong(CONSTANTS.STADION_ID)!!
+        module = arguments?.getString("key_search")
 
-        viewModel.getOder(stadiumId)
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.orderFlow.collect {
-                when (it) {
-                    is UiStateList.SUCCESS -> {
-                        if (it.data != null && it.data.isNotEmpty()) {
-                            adapter.submitList(it.data)
-                        }
-                    }
-                    else -> Unit
-                }
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        _bn = FragmentOrderBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        _bn = FragmentFilterBinding.bind(view)
 
         bn.rvOrders.adapter = adapter
         bn.rvOrders.layoutManager = LinearLayoutManager(requireContext())
 
-        bn.swipeRefresh.setOnRefreshListener {
-            viewModel.getOder(stadiumId)
-        }
+      bn.toolbar.setNavigationOnClickListener {
+          findNavController().navigateUp()
+      }
 
-        bn.btnAddOrder.setOnClickListener {
-            findNavController().navigate(
-                R.id.createOrderFragment,
-                bundleOf(CONSTANTS.STADION_ID to stadiumId),
-                Utils.navOptions()
-            )
-        }
+        when (module) {
+            "search" -> {
+                viewModel.getOder(stadiumId)
 
-        collects()
+                lifecycleScope.launchWhenCreated {
+                    viewModel.orderFlow.collect {
+                        when (it) {
+                            is UiStateList.SUCCESS -> {
+                                if (it.data != null && it.data.isNotEmpty()) {
+                                    adapter.submitList(it.data)
+                                    bn.searchView.addTextChangedListener(object : TextWatcherWrapper() {
+                                        override fun onTextChanged(
+                                            s: CharSequence?,
+                                            start: Int,
+                                            before: Int,
+                                            count: Int,
+                                        ) {
+                                            super.onTextChanged(s, start, before, count)
+                                            val arrayList = ArrayList<Order>()
+                                            for (order in it.data) {
+                                                if (order.phoneNumber!!.contains(s!!))
+                                                    arrayList.add(order)
+                                            }
+                                            adapter.submitList(arrayList)
+                                        }
+                                    })
+                                }
+                            }
+                            else -> Unit
+                        }
+                    }
+                }
+                collects()
+            }
+            "short" -> {
+
+            }
+            "filter" -> {
+
+            }
+        }
 
         adapter.setOnAcceptListener {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.acceptOrder(it.id)
             }
-        }
-
-        adapter.setOnCancelListener { orderId ->
-            val dialog = BaseDialog(getString(R.string.cancel), getString(R.string.cancel_order))
-            dialog.setOnDeleteListener {
-                dialog.dismiss()
-                viewModel.rejectOrder(orderId)
-            }
-            dialog.show(childFragmentManager, "asd")
-        }
-
-        adapter.setOnRejectListener {
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-                viewModel.rejectOrder(it.id)
-            }
-        }
-        adapter.setOnPhoneNumber1Listener {
-            requireActivity().startActivity(
-                Intent(
-                    Intent.ACTION_DIAL,
-                    Uri.parse("tel:${if (it.contains("+")) it else "+$it"}")
-                )
-            )
-        }
-
-        adapter.setOnPhoneNumber2Listener {
-            requireActivity().startActivity(
-                Intent(
-                    Intent.ACTION_DIAL,
-                    Uri.parse("tel:${if (it.contains("+")) it else "+$it"}")
-                )
-            )
         }
 
     }
@@ -190,12 +173,7 @@ class OrderFragment : Fragment(R.layout.fragment_order) {
     }
 
     private fun showProgress(status: Boolean) {
-        bn.swipeRefresh.isRefreshing = false
         bn.progressBar.isVisible = status
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _bn = null
-    }
 }

@@ -22,6 +22,8 @@ class DatabaseModule {
     fun getDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "block")
             .addTypeConverter(Converters())
+            .allowMainThreadQueries()
+           // .fallbackToDestructiveMigration()
             .build()
 
     @Provides

@@ -23,4 +23,5 @@ object CONSTANTS {
     const val STADIUM_DATA = "STADIUM_DATA"
     const val STADION_ID = "stadium_id"
     const val SERVER_KEY = "AAAAjHjdqwE:APA91bEQqukV6rB70Us4mpFDfucwoaG2Q0iB-wfnpZQLR2unQ5k6-vx3b_rRdFBE1LKYip9d-Q9AsrGs98bltux8w5e6iJwRiKJs7JDurGT2KokjL2USIFD93eYPEvjQletih6bXqCaH "
+    const val STADIUM_ORDER = "stadium"
 }

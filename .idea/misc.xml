@@ -3,11 +3,50 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/drawable/ic_brbt.xml" value="0.2203125" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/drawable/ic_dest.xml" value="0.2203125" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/drawable/ic_like.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/drawable/phone_edit_white_back.xml" value="0.2169230769230769" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/activity_auth.xml" value="0.1" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/activity_menu.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/activity_user.xml" value="0.2" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/base_dialog_layout.xml" value="0.20102564102564102" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/base_stadium_dialog.xml" value="0.22" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/cancel_order_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/dialog_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_create_order.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_dashboard.xml" value="0.18" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_filter.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_forgot.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_home.xml" value="0.13425925925925927" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_like_stadium.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_map.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_order.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_order_delete.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_order_history.xml" value="0.1824074074074074" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_pager.xml" value="0.13425925925925927" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_password.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_phone_number.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_stadium.xml" value="0.18" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_user_order.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_user_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/fragment_verification.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/item_attachment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/item_stadium.xml" value="0.13703703703703704" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/layout/item_user_stadium.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/menu/filter_menu.xml" value="0.18888888888888888" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/menu/popup_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Akmal/AndroidStudioProjects/Booking/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2203125" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.3055555555555556" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
